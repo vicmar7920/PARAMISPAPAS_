@@ -1,0 +1,2381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BIENVENIDOS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       PALETAS DE COLORES GENERALES (5 TEMAS CÁLIDOS Y DE ALTO CONTRASTE)
+       ========================================================================== */
+    :root, [data-theme="amanecer"] {
+      --bg-1: #1e40af;
+      --bg-2: #ea580c;
+      --bg-3: #fef3c7;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: rgba(245, 158, 11, 0.45);
+      --text-main: #1e293b;
+      --text-soft: #475569;
+      --accent: #d97706;
+      --accent-2: #15803d;
+      --hill-1: #166534;
+      --hill-2: #15803d;
+      --volcano: #334155;
+      --snow: #ffffff;
+      --font-scale: 1;
+    }
+
+    [data-theme="montana"] {
+      --bg-1: #0f766e;
+      --bg-2: #0284c7;
+      --bg-3: #bae6fd;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: rgba(2, 132, 199, 0.45);
+      --text-main: #0f172a;
+      --text-soft: #334155;
+      --accent: #0284c7;
+      --accent-2: #0f766e;
+      --hill-1: #115e59;
+      --hill-2: #0d9488;
+      --volcano: #1e293b;
+      --snow: #f8fafc;
+    }
+
+    [data-theme="jardin"] {
+      --bg-1: #be185d;
+      --bg-2: #f59e0b;
+      --bg-3: #dcfce7;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --card-border: rgba(219, 39, 119, 0.4);
+      --text-main: #1e293b;
+      --text-soft: #475569;
+      --accent: #db2777;
+      --accent-2: #16a34a;
+      --hill-1: #15803d;
+      --hill-2: #22c55e;
+      --volcano: #475569;
+      --snow: #ffffff;
+    }
+
+    [data-theme="claro"] {
+      --bg-1: #fef9c3;
+      --bg-2: #ffedd5;
+      --bg-3: #e0f2fe;
+      --card-bg: rgba(255, 255, 255, 0.98);
+      --card-border: rgba(180, 83, 9, 0.35);
+      --text-main: #0f172a;
+      --text-soft: #334155;
+      --accent: #b45309;
+      --accent-2: #15803d;
+      --hill-1: #4d7c0f;
+      --hill-2: #65a30d;
+      --volcano: #64748b;
+      --snow: #ffffff;
+    }
+
+    [data-theme="noche"] {
+      --bg-1: #090d16;
+      --bg-2: #1e1b4b;
+      --bg-3: #064e3b;
+      --card-bg: rgba(15, 23, 42, 0.92);
+      --card-border: rgba(250, 204, 21, 0.4);
+      --text-main: #f8fafc;
+      --text-soft: #cbd5e1;
+      --accent: #facc15;
+      --accent-2: #34d399;
+      --hill-1: #064e3b;
+      --hill-2: #047857;
+      --volcano: #1e293b;
+      --snow: #e2e8f0;
+    }
+
+    html {
+      font-size: calc(16px * var(--font-scale));
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-main);
+      background: linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 52%, var(--bg-3) 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.6s ease, color 0.35s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-title {
+      font-family: 'Fraunces', serif;
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      border: 2px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.16);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.35s ease;
+    }
+
+    .hover-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 34px -6px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-press {
+      transition: transform 0.14s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .btn-press:active {
+      transform: scale(0.95);
+    }
+
+    /* ==========================================================================
+       ANIMACIONES DE STICKERS, NUBES Y ANIMALITOS DE GRANJA
+       ========================================================================== */
+    @keyframes floatA {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(5deg); }
+    }
+    @keyframes floatB {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(10px) rotate(-5deg); }
+    }
+    @keyframes cloudMove {
+      0% { transform: translateX(-18vw); }
+      100% { transform: translateX(115vw); }
+    }
+    @keyframes bouncePop {
+      0% { transform: scale(1) rotate(0deg); }
+      35% { transform: scale(1.45) rotate(14deg); }
+      70% { transform: scale(0.9) rotate(-8deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .sticker-a { animation: floatA 5.2s ease-in-out infinite; }
+    .sticker-b { animation: floatB 6.1s ease-in-out infinite; }
+    .pop-anim { animation: bouncePop 0.5s ease-out; }
+
+    .cloud-1 { animation: cloudMove 55s linear infinite; }
+    .cloud-2 { animation: cloudMove 72s linear infinite; animation-delay: -28s; }
+
+    .sticker-btn {
+      cursor: pointer;
+      pointer-events: auto;
+      filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2));
+      transition: transform 0.2s ease;
+    }
+    .sticker-btn:hover { transform: scale(1.2); }
+
+    /* Sopa de Letras */
+    .word-cell {
+      touch-action: none;
+      transition: background-color 0.14s ease, color 0.14s ease, transform 0.1s ease;
+    }
+    .word-cell.selecting {
+      transform: scale(1.08);
+      border-radius: 0.5rem;
+      outline: 2px solid currentColor;
+    }
+
+    /* Memoria */
+    .mem-inner {
+      transition: transform 0.42s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .mem-card.flipped .mem-inner { transform: rotateY(180deg); }
+    .mem-front, .mem-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .mem-back { transform: rotateY(180deg); }
+
+    /* Conecta sin límite */
+    #merge-board-area {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body data-theme="amanecer" class="relative pb-20">
+
+  <!-- ==========================================================================
+       FONDO DE CAMPO ANDINO, VOLCÁN NEVADO, PRADERAS Y STICKERS INTERACTIVOS
+       ========================================================================== -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+    <div class="cloud-1 absolute top-14 left-0 opacity-45 text-5xl">☁️</div>
+    <div class="cloud-2 absolute top-28 left-0 opacity-35 text-4xl">☁️</div>
+
+    <!-- Stickers Interactivos con Movimiento -->
+    <button onclick="tapSticker(this, 'sol')" class="sticker-btn sticker-a fixed top-24 left-3 sm:left-7 text-4xl sm:text-5xl z-10" title="¡Sol del campo!">🌞</button>
+    <button onclick="tapSticker(this, 'flor')" class="sticker-btn sticker-b fixed top-44 right-3 sm:right-8 text-3xl sm:text-5xl z-10" title="¡Flor silvestre!">🌻</button>
+    <button onclick="tapSticker(this, 'cafe')" class="sticker-btn sticker-a fixed bottom-28 left-3 sm:left-7 text-4xl sm:text-5xl z-10" title="¡Cafecito caliente!">☕</button>
+    <button onclick="tapSticker(this, 'mariposa')" class="sticker-btn sticker-b fixed bottom-32 right-3 sm:right-8 text-4xl sm:text-5xl z-10" title="¡Mariposa!">🦋</button>
+    <button onclick="tapSticker(this, 'musica')" class="sticker-btn sticker-a hidden md:block fixed top-1/2 left-5 text-4xl z-10" title="¡Alegría!">🎶</button>
+    <button onclick="tapSticker(this, 'hoja')" class="sticker-btn sticker-b hidden md:block fixed top-1/2 right-5 text-4xl z-10" title="¡Aire puro!">🌿</button>
+
+    <!-- Paisaje Ilustrado: Volcán Nevado y Praderas Verdes del Campo -->
+    <svg class="absolute bottom-0 left-0 w-full h-52 sm:h-64 opacity-45" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <!-- Volcán nevado al fondo -->
+      <path fill="var(--volcano)" d="M180,270 L490,65 L820,270 Z"></path>
+      <path fill="var(--snow)" d="M490,65 L432,115 L458,108 L485,124 L512,107 L542,119 Z"></path>
+      <!-- Colinas y praderas verdes -->
+      <path fill="var(--hill-1)" d="M0,235 Q320,150 680,225 T1440,185 L1440,320 L0,320 Z"></path>
+      <path fill="var(--hill-2)" d="M0,265 Q440,205 900,255 T1440,230 L1440,320 L0,320 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ==========================================================================
+       ENCABEZADO PRINCIPAL: "BIENVENIDOS" + PALETA DE COLORES + ACCESIBILIDAD
+       ========================================================================== -->
+  <header class="relative z-20 max-w-5xl mx-auto px-3 sm:px-6 pt-4">
+    <div class="glass-card rounded-3xl p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Título cálido y decorativo -->
+      <div class="flex items-center gap-3.5 text-center md:text-left">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-emerald-600 flex items-center justify-center text-3xl shadow-md text-white shrink-0">
+          🌻
+        </div>
+        <div>
+          <h1 class="font-title text-3xl sm:text-4xl font-black tracking-wide leading-none" style="color: var(--accent);">
+            BIENVENIDOS
+          </h1>
+          <p class="text-xs sm:text-sm font-bold opacity-80 mt-1">
+            Un rincón alegre de campo, música y pasatiempos hecho con mucho cariño
+          </p>
+        </div>
+      </div>
+
+      <!-- Controles de Paleta de Colores, Letra y Sonido -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <!-- 5 Paletas de Colores -->
+        <div class="flex items-center gap-1.5 bg-black/5 px-3 py-1.5 rounded-2xl border border-black/10">
+          <span class="text-xs font-extrabold opacity-80">🎨 Fondo:</span>
+          <button onclick="setTheme('amanecer')" title="Amanecer en el Campo" class="w-6 h-6 rounded-full border-2 border-white shadow bg-gradient-to-br from-blue-700 via-orange-500 to-amber-200 hover:scale-110 transition"></button>
+          <button onclick="setTheme('montana')" title="Tarde de Montaña" class="w-6 h-6 rounded-full border-2 border-white shadow bg-gradient-to-br from-teal-700 via-sky-500 to-sky-200 hover:scale-110 transition"></button>
+          <button onclick="setTheme('jardin')" title="Jardín Florido" class="w-6 h-6 rounded-full border-2 border-white shadow bg-gradient-to-br from-pink-600 via-amber-400 to-green-200 hover:scale-110 transition"></button>
+          <button onclick="setTheme('claro')" title="Cielo Claro" class="w-6 h-6 rounded-full border-2 border-slate-300 shadow bg-gradient-to-br from-yellow-100 to-orange-100 hover:scale-110 transition"></button>
+          <button onclick="setTheme('noche')" title="Noche Tranquila" class="w-6 h-6 rounded-full border-2 border-white shadow bg-gradient-to-br from-slate-900 via-indigo-950 to-emerald-800 hover:scale-110 transition"></button>
+        </div>
+
+        <button onclick="toggleFontScale()" class="btn-press px-3 py-2 rounded-2xl font-bold text-xs sm:text-sm bg-black/10 hover:bg-black/15 flex items-center gap-1">
+          <span>🔍</span> <span id="font-btn-text">Letra +</span>
+        </button>
+
+        <button onclick="toggleSound()" id="sound-btn" class="btn-press px-3 py-2 rounded-2xl font-bold text-xs sm:text-sm bg-emerald-600 text-white shadow flex items-center gap-1">
+          <span id="sound-btn-icon">🔊</span> <span id="sound-btn-text">Sonido</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- NOTIFICACIÓN FLOTANTE AMIGABLE -->
+  <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-full shadow-2xl border-2 border-amber-400 font-bold text-sm sm:text-base flex items-center gap-2.5 max-w-[92vw]">
+    <span id="toast-emoji" class="text-xl">🌻</span>
+    <span id="toast-text" class="truncate">¡Qué lindo día en el campo!</span>
+  </div>
+
+  <!-- ==========================================================================
+       CONTENEDOR PRINCIPAL
+       ========================================================================== -->
+  <main class="relative z-20 max-w-5xl mx-auto px-3 sm:px-6 mt-5">
+
+    <!-- ========================================================================
+         VISTA 1: INICIO (ACCESO DIRECTO A LOS 9 JUEGOS Y RINCONES)
+         ======================================================================== -->
+    <section id="section-home" class="space-y-6">
+
+      <!-- Cuadrícula de los 9 Juegos y Rincones -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- 1. Completa la Canción -->
+        <div onclick="openGame('cancion')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🎶</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-800 dark:text-amber-300">90+ Rondas</span>
+            </div>
+            <h3 class="text-xl font-black">Completa la Canción</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Versos clásicos de <strong>Diomedes Díaz</strong> y <strong>Azucena Aymara</strong> para cantar y recordar.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center" style="color: var(--accent);">
+            <span>Entrar a cantar</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 2. Trivia De Cumbal al Mundo -->
+        <div onclick="openGame('trivia')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🏔️</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-800 dark:text-sky-300">200+ Preguntas</span>
+            </div>
+            <h3 class="text-xl font-black">De Cumbal al Mundo</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Curiosidades de nuestra tierra nariñense, la frontera con Ecuador, comidas y cultura.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-sky-600 dark:text-sky-400">
+            <span>Jugar preguntas</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 3. Sopa de Letras -->
+        <div onclick="openGame('sopa')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🔎</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-800 dark:text-emerald-300">Paleta Propia</span>
+            </div>
+            <h3 class="text-xl font-black">Sopa de Letras</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Desliza el dedo para hallar palabras y cambia los colores de las letras y el tablero a tu gusto.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-emerald-600 dark:text-emerald-400">
+            <span>Buscar palabras</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 4. Memoria de Nuestra Tierra -->
+        <div onclick="openGame('memoria')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🌺</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-800 dark:text-purple-300">200+ Especies</span>
+            </div>
+            <h3 class="text-xl font-black">Memoria Nuestra Tierra</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Parejas de árboles, flores silvestres y animales del campo con nombres e ilustraciones.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-purple-600 dark:text-purple-400">
+            <span>Voltear cartas</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 5. Conecta & Evoluciona -->
+        <div onclick="openGame('conecta')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🌱</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-800 dark:text-orange-300">Sin Límite</span>
+            </div>
+            <h3 class="text-xl font-black">Conecta & Evoluciona</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Desliza solo con el dedo para unir fichas iguales y escalar niveles infinitos sin tope.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-orange-600 dark:text-orange-400">
+            <span>Deslizar y unir</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 6. Adivina la Palabra -->
+        <div onclick="openGame('palabra')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">💡</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-800 dark:text-rose-300">200 Palabras</span>
+            </div>
+            <h3 class="text-xl font-black">Adivina la Palabra</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Descubre palabras del campo, música y costumbres con pistas claras y teclado grande.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-rose-600 dark:text-rose-400">
+            <span>Adivinar ahora</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 7. Intruso en el Grupo -->
+        <div onclick="openGame('intruso')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">🧐</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-800 dark:text-teal-300">200+ Retos</span>
+            </div>
+            <h3 class="text-xl font-black">Intruso en el Grupo</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Observa los elementos y descubre cuál es el único que no pertenece a la familia.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-teal-600 dark:text-teal-400">
+            <span>Encontrar intruso</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 8. Busca las Diferencias Rápidas -->
+        <div onclick="openGame('diferencias')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">👀</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-800 dark:text-indigo-300">300+ Escenas</span>
+            </div>
+            <h3 class="text-xl font-black">Busca las Diferencias</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Compara las dos escenas del campo y toca entre 5 y 10 detalles distintos en cada lámina.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-indigo-600 dark:text-indigo-400">
+            <span>Agudizar la vista</span><span>➔</span>
+          </div>
+        </div>
+
+        <!-- 9. Rincón de Frases Lindas -->
+        <div onclick="openGame('frases')" class="glass-card hover-lift cursor-pointer rounded-3xl p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-4xl">💌</span>
+              <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-pink-500/20 text-pink-800 dark:text-pink-300">100+ Frases</span>
+            </div>
+            <h3 class="text-xl font-black">Rincón de Frases Lindas</h3>
+            <p class="text-sm opacity-80 mt-1">
+              Pensamientos bonitos, sabiduría del campo y palabras de alegría para leer tranquilos.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-black/10 font-extrabold text-sm flex justify-between items-center text-pink-600 dark:text-pink-400">
+            <span>Leer frases</span><span>➔</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         VISTA 2: CONTENEDOR ACTIVO DE CADA JUEGO
+         ======================================================================== -->
+    <section id="section-game" class="hidden">
+      <div class="glass-card rounded-3xl p-4 sm:p-6">
+        <div class="flex items-center justify-between pb-4 mb-5 border-b border-black/10">
+          <button onclick="showSection('home')" class="btn-press px-4 py-2.5 rounded-2xl font-extrabold text-sm sm:text-base bg-slate-800 text-white shadow flex items-center gap-2">
+            <span>⬅️</span> Volver al Inicio
+          </button>
+          <span id="game-header-tag" class="text-xs sm:text-sm font-extrabold opacity-75 px-3 py-1 rounded-full bg-black/5">
+            Pasatiempos
+          </span>
+        </div>
+
+        <div id="game-stage"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* ==========================================================================
+       1. ESTADO GUARDADO Y AUDIO SINTETIZADO (WEB AUDIO API)
+       ========================================================================== */
+    const STORAGE_KEY = 'bienvenidos_app_v3';
+    let appState = {
+      theme: 'amanecer',
+      fontScale: 1,
+      sound: true,
+      sopaPalette: 0,
+      favoriteQuotes: []
+    };
+
+    function loadAppState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) appState = { ...appState, ...JSON.parse(raw) };
+      } catch (e) {}
+      applyTheme(appState.theme);
+      applyFontScale(appState.fontScale);
+      updateSoundButton();
+    }
+
+    function saveAppState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {}
+    }
+
+    let audioCtx = null;
+    function getAudio() {
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
+    }
+
+    function playNote(freq, type = 'triangle', dur = 0.16, delay = 0, vol = 0.14) {
+      if (!appState.sound) return;
+      const ctx = getAudio();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+      gain.gain.setValueAtTime(0.001, ctx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(vol, ctx.currentTime + delay + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + delay);
+      osc.stop(ctx.currentTime + delay + dur + 0.03);
+    }
+
+    function playSFX(kind) {
+      if (!appState.sound) return;
+      switch (kind) {
+        case 'tap': playNote(520, 'sine', 0.08, 0, 0.1); break;
+        case 'ok':
+          playNote(523.25, 'triangle', 0.14, 0, 0.16);
+          playNote(659.25, 'triangle', 0.14, 0.09, 0.16);
+          playNote(783.99, 'triangle', 0.22, 0.18, 0.18);
+          break;
+        case 'soft':
+          playNote(330, 'sine', 0.16, 0, 0.1);
+          playNote(293.66, 'sine', 0.2, 0.12, 0.1);
+          break;
+      }
+    }
+
+    function setTheme(t) {
+      appState.theme = t;
+      applyTheme(t);
+      saveAppState();
+      playSFX('tap');
+    }
+    function applyTheme(t) { document.body.setAttribute('data-theme', t); }
+
+    function toggleFontScale() {
+      appState.fontScale = appState.fontScale === 1 ? 1.15 : 1;
+      applyFontScale(appState.fontScale);
+      saveAppState();
+      playSFX('tap');
+    }
+    function applyFontScale(s) {
+      document.documentElement.style.setProperty('--font-scale', s);
+      document.getElementById('font-btn-text').textContent = s > 1 ? 'Letra Normal' : 'Letra +';
+    }
+
+    function toggleSound() {
+      appState.sound = !appState.sound;
+      saveAppState();
+      updateSoundButton();
+      if (appState.sound) playSFX('ok');
+    }
+    function updateSoundButton() {
+      const btn = document.getElementById('sound-btn');
+      const icon = document.getElementById('sound-btn-icon');
+      const txt = document.getElementById('sound-btn-text');
+      if (appState.sound) {
+        btn.className = 'btn-press px-3 py-2 rounded-2xl font-bold text-xs sm:text-sm bg-emerald-600 text-white shadow flex items-center gap-1';
+        icon.textContent = '🔊';
+        txt.textContent = 'Sonido';
+      } else {
+        btn.className = 'btn-press px-3 py-2 rounded-2xl font-bold text-xs sm:text-sm bg-slate-500 text-white shadow flex items-center gap-1';
+        icon.textContent = '🔇';
+        txt.textContent = 'Silencio';
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg, emoji = '🌻') {
+      const el = document.getElementById('toast');
+      document.getElementById('toast-text').textContent = msg;
+      document.getElementById('toast-emoji').textContent = emoji;
+      el.classList.remove('hidden');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    function tapSticker(el, kind) {
+      el.classList.remove('pop-anim');
+      void el.offsetWidth;
+      el.classList.add('pop-anim');
+      playSFX('ok');
+      const msgs = {
+        sol: '🌞 ¡Un sol radiante ilumina el campo!',
+        flor: '🌻 ¡Qué lindas florecen las plantas hoy!',
+        cafe: '☕ ¡Un cafecito calientico para disfrutar!',
+        mariposa: '🦋 ¡Las mariposas alegran el jardín!',
+        musica: '🎶 ¡La música alegra el corazón!',
+        hoja: '🌿 ¡Aire puro y fresco de la montaña!'
+      };
+      showToast(msgs[kind] || '✨ ¡Qué buen rato!', '✨');
+    }
+
+    function showSection(sec) {
+      document.getElementById('section-home').classList.toggle('hidden', sec !== 'home');
+      document.getElementById('section-game').classList.toggle('hidden', sec !== 'game');
+      playSFX('tap');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       NAVEGACIÓN DE JUEGOS
+       ========================================================================== */
+    function openGame(id) {
+      showSection('game');
+      const stage = document.getElementById('game-stage');
+      const tag = document.getElementById('game-header-tag');
+      stage.innerHTML = '';
+
+      const titles = {
+        cancion: '🎶 Completa la Canción (90+ Rondas)',
+        trivia: '🏔️ De Cumbal al Mundo (200+ Preguntas)',
+        sopa: '🔎 Sopa de Letras',
+        memoria: '🌺 Memoria Nuestra Tierra (200+ Especies)',
+        conecta: '🌱 Conecta & Evoluciona (Sin Límite)',
+        palabra: '💡 Adivina la Palabra (200 Palabras)',
+        intruso: '🧐 Intruso en el Grupo (200+ Retos)',
+        diferencias: '👀 Busca las Diferencias (300+ Escenas)',
+        frases: '💌 Rincón de Frases Lindas (100+ Frases)'
+      };
+      tag.textContent = titles[id] || 'Pasatiempo';
+
+      if (id === 'cancion') initSongGame(stage);
+      else if (id === 'trivia') initTriviaGame(stage);
+      else if (id === 'sopa') initWordSearchGame(stage);
+      else if (id === 'memoria') initMemoryGame(stage);
+      else if (id === 'conecta') initMergeGame(stage);
+      else if (id === 'palabra') initHangmanGame(stage);
+      else if (id === 'intruso') initIntruderGame(stage);
+      else if (id === 'diferencias') initDifferencesGame(stage);
+      else if (id === 'frases') initQuotesGame(stage);
+    }
+
+    /* ==========================================================================
+       JUEGO 1: COMPLETA LA CANCIÓN (96 RONDAS: DIOMEDES DÍAZ Y AZUCENA AYMARA)
+       ========================================================================== */
+    const SONG_ROUNDS = [
+      // 48 Rondas de Diomedes Díaz
+      { who: 'diomedes', song: 'Tú Eres la Reina', l1: '«Tú eres la reina de mi alma, la que me da la calma...»', ok: '«...cuando estoy pensando en ti»', bad: ['«...en las tardes de parranda»', '«...por las calles de la junta»', '«...cuando sale el nuevo sol»'] },
+      { who: 'diomedes', song: 'Amarte Más No Pude', l1: '«Ay, amarte más no pude, porque más no pude amarte...»', ok: '«...si algún día me necesitas, llámame»', bad: ['«...y ahora me toca olvidarte»', '«...porque el destino nos separó»', '«...aunque me duela el corazón»'] },
+      { who: 'diomedes', song: 'La Plata', l1: '«Yo no sé para qué tanta plata, si al fin y al cabo...»', ok: '«...uno se muere y nada se lleva»', bad: ['«...todo se gasta en parranda»', '«...la vida es un ratico nomás»', '«...el cariño vale mucho más»'] },
+      { who: 'diomedes', song: 'Sin Medir Distancias', l1: '«La herida que siempre llevo en el alma no cicatriza...»', ok: '«...inevitable me marca la pena que es infinita»', bad: ['«...porque tu recuerdo nunca se olvida»', '«...aunque pasen los años y la vida»', '«...y el viento se lleva mis canciones»'] },
+      { who: 'diomedes', song: 'Mi Primera Cana', l1: '«Hoy que me miro al espejo y veo mi primera cana...»', ok: '«...me doy cuenta que los años van pasando»', bad: ['«...recuerdo los tiempos de mi juventud»', '«...siento alegría de haber vivido tanto»', '«...le doy gracias a Dios por este día»'] },
+      { who: 'diomedes', song: 'Oye Bonita', l1: '«Oye bonita cuando me estés mirando...»', ok: '«...sabrás que yo por ti me estoy muriendo»', bad: ['«...no me mires con esos ojos tan lindos»', '«...que me haces perder la cabeza»', '«...dime si tú también me estás queriendo»'] },
+      { who: 'diomedes', song: 'Ilusiones', l1: '«Ay, dime qué pasó con las ilusiones...»', ok: '«...que teníamos tú y yo en la vida»', bad: ['«...que se fueron con el viento»', '«...cuando nos juramos amor eterno»', '«...que guardaba en mi corazón»'] },
+      { who: 'diomedes', song: 'Bonita', l1: '«Bonita, así es que me gustas tú...»', ok: '«...con esa sonrisa linda que alegra mi juventud»', bad: ['«...caminando por la plaza al atardecer»', '«...cuando bailas al compás del acordeón»', '«...con tus ojos brillantes como luceros»'] },
+      { who: 'diomedes', song: 'El Cóndor Herido', l1: '«Me siento como un cóndor herido...»', ok: '«...que va volando sin rumbo fijo»', bad: ['«...buscando abrigo en la montaña»', '«...mirando el cielo de mi tierra»', '«...cantando penas de despedida»'] },
+      { who: 'diomedes', song: 'Todo es Para Ti', l1: '«Todo es para ti, mi vida entera...»', ok: '«...para que seas feliz mientras yo viva»', bad: ['«...como las flores en primavera»', '«...porque tú eres mi único consuelo»', '«...hasta que Dios nos dé licencia»'] },
+      { who: 'diomedes', song: 'Mi Muchacho', l1: '«Ay, mi muchacho, escucha bien los consejos...»', ok: '«...que te da tu padre con todo el alma»', bad: ['«...para que triunfes en esta vida»', '«...cuando salgas a caminar el mundo»', '«...que la experiencia enseña bastante»'] },
+      { who: 'diomedes', song: '26 de Mayo', l1: '«El veintiséis del mes de mayo...»', ok: '«...nació un niñito en la Junta»', bad: ['«...sonó la caja y la guacharaca»', '«...se armó la fiesta en el pueblo»', '«...cantaron todos los juglares»'] },
+      { who: 'diomedes', song: 'Listo Pa’ la Foto', l1: '«Me puse mi pinta nueva y ya estoy listo...»', ok: '«...pa’ que me tomen la foto»', bad: ['«...pa’ salir a parrandear»', '«...pa’ cantar en la tarima»', '«...pa’ saludar a mi gente»'] },
+      { who: 'diomedes', song: 'La Reina', l1: '«Voy a hacerte una casa en el aire...»', ok: '«...solamente pa’ que vivas tú»', bad: ['«...con ventanas hacia el mar»', '«...adornada con estrellas»', '«...donde nadie nos moleste»'] },
+      { who: 'diomedes', song: 'Tres Canciones', l1: '«Te dedico tres canciones con el alma...»', ok: '«...para que nunca te olvides de mi cariño»', bad: ['«...acompañadas de un buen acordeón»', '«...en esta noche llena de estrellas»', '«...porque te llevo siempre presente»'] },
+      { who: 'diomedes', song: 'Lucero Espiritual', l1: '«Eres mi lucero espiritual...»', ok: '«...la luz que alumbra todo mi camino»', bad: ['«...la estrella más linda del firmamento»', '«...mi compañera en las buenas y malas»', '«...el regalo más grande del cielo»'] },
+      { who: 'diomedes', song: 'Gaviota Herida', l1: '«Vuela gaviota por el cielo azul...»', ok: '«...lleva este mensaje a quien yo más quiero»', bad: ['«...buscando calma para tu vuelo»', '«...cruzando mares y cordilleras»', '«...cantando versos de despedida»'] },
+      { who: 'diomedes', song: 'A Mi Papá', l1: '«A mi papá le debo lo que soy...»', ok: '«...por sus ejemplos de hombre trabajador»', bad: ['«...por enseñarme a querer la tierra»', '«...por darme siempre su bendición»', '«...por sus palabras llenas de verdad»'] },
+      { who: 'diomedes', song: 'Regalo a Mamá', l1: '«Madre querida, hoy te vengo a cantar...»', ok: '«...porque no hay nadie en el mundo como tú»', bad: ['«...con todo el amor de mi corazón»', '«...este vallenato lleno de ternura»', '«...en este día tan especial»'] },
+      { who: 'diomedes', song: 'Caracoles de Colores', l1: '«En la playa recogí caracoles de colores...»', ok: '«...para hacerte un collar bien bonito»', bad: ['«...mirando las olas del mar»', '«...recordando tus ojos lindos»', '«...mientras cantaba una melodía»'] },
+      { who: 'diomedes', song: 'La Ventana Marroncita', l1: '«Por la ventana marroncita de tu casa...»', ok: '«...te vi asomada mirando hacia la calle»', bad: ['«...entraba el viento fresco de la tarde»', '«...te mandé un saludo con mi acordeón»', '«...brillaban tus ojos como dos luceros»'] },
+      { who: 'diomedes', song: 'El Profeta', l1: '«Aunque me digan el profeta del vallenato...»', ok: '«...yo sigo siendo el mismo campesino»', bad: ['«...canto con el alma para mi pueblo»', '«...nunca me olvido de dónde vengo»', '«...la humildad es mi mayor tesoro»'] },
+      { who: 'diomedes', song: 'Experiencia Vivida', l1: '«Con el pasar de los años uno aprende...»', ok: '«...a valorar lo que de verdad importa»', bad: ['«...a caminar con paso firme»', '«...a guardar los buenos recuerdos»', '«...a darle gracias a la vida»'] },
+      { who: 'diomedes', song: 'Te Necesito', l1: '«Te necesito como el campo necesita el agua...»', ok: '«...como las flores necesitan del sol»', bad: ['«...como la noche necesita la luna»', '«...como el acordeón necesita sus notas»', '«...como el viajero necesita su hogar»'] },
+      { who: 'diomedes', song: 'Camino Largo', l1: '«Por este camino largo de la vida...»', ok: '«...voy cantando mis alegrías y mis penas»', bad: ['«...siempre llevo a mi familia en mente»', '«...buscando un horizonte de paz»', '«...agradeciendo cada amanecer»'] },
+      { who: 'diomedes', song: 'Parranda en el Pueblo', l1: '«Cuando suena el acordeón en la plaza...»', ok: '«...todo el mundo sale a bailar contento»', bad: ['«...se olvidan todas las preocupaciones»', '«...empieza la alegría hasta el amanecer»', '«...se reúnen los amigos de siempre»'] },
+      { who: 'diomedes', song: 'Corazón Contento', l1: '«Con el corazón contento y la conciencia limpia...»', ok: '«...se vive tranquilo en cualquier rincón»', bad: ['«...se duerme sabroso todas las noches»', '«...se disfruta cada día de la vida»', '«...se canta con mucha más emoción»'] },
+      { who: 'diomedes', song: 'Brisas de Diciembre', l1: '«Ya llegaron las brisas alegres de diciembre...»', ok: '«...trayendo abrazos y reuniones en familia»', bad: ['«...anunciando fiestas y canciones»', '«...llenando de luz todas las casas»', '«...despertando recuerdos muy bonitos»'] },
+      { who: 'diomedes', song: 'El Viejo Miguel', l1: '«Recuerdo siempre los consejos del viejo Miguel...»', ok: '«...hombre noble y querido en toda la región»', bad: ['«...que tocaba el acordeón con maestría»', '«...que madrugaba a trabajar su tierra»', '«...que siempre tenía una sonrisa amable»'] },
+      { who: 'diomedes', song: 'Sueños de Campo', l1: '«En mi tierra linda donde canta el turpial...»', ok: '«...se respira paz y cariño verdadero»', bad: ['«...florecen los árboles cada mañana»', '«...se toma café caliente al despertar»', '«...la gente saluda con sinceridad»'] },
+      { who: 'diomedes', song: 'Canto a la Vida', l1: '«Hay que cantarle a la vida con entusiasmo...»', ok: '«...porque cada día es una bendición»', bad: ['«...dejando atrás cualquier tristeza»', '«...rodeado de los seres queridos»', '«...con alegría y buen humor»'] },
+      { who: 'diomedes', song: 'Alma Vallenata', l1: '«Llevo el folclor metido en las venas...»', ok: '«...como herencia sagrada de mis abuelos»', bad: ['«...desde que era un niño en el campo»', '«...y lo canto con orgullo donde voy»', '«...con caja, guacharaca y acordeón»'] },
+      { who: 'diomedes', song: 'Noche Estrellada', l1: '«Bajo este cielo lleno de estrellas brillantes...»', ok: '«...te dedico esta serenata con cariño»', bad: ['«...recuerdo las tardes junto a ti»', '«...suena dulce la melodía de mi canto»', '«...se siente la brisa fresca de la noche»'] },
+      { who: 'diomedes', song: 'Palabra de Honor', l1: '«En mi tierra la palabra vale más que una firma...»', ok: '«...porque somos gente seria y cumplidora»', bad: ['«...y la amistad se cuida como un tesoro»', '«...desde los tiempos de nuestros mayores»', '«...con respeto y sinceridad»'] },
+      { who: 'diomedes', song: 'Tardes de Acordeón', l1: '«En las tardes tranquilas debajo de un árbol...»', ok: '«...suenan las notas alegres del acordeón»', bad: ['«...conversan los amigos tomando tinto»', '«...se escuchan historias de antaño»', '«...canta el viento entre las hojas»'] },
+      { who: 'diomedes', song: 'Luz de Mañana', l1: '«Cuando despunta el sol por la montaña...»', ok: '«...empieza un nuevo día lleno de esperanza»', bad: ['«...cantan los gallos anunciando la aurora»', '«...se despierta el campo con alegría»', '«...brilla el rocío sobre las flores»'] },
+      { who: 'diomedes', song: 'Amor Sincero', l1: '«Un amor sincero no se compra con dinero...»', ok: '«...se cultiva día a día con respeto y detalle»', bad: ['«...vale más que todo el oro del mundo»', '«...permanece firme con el paso del tiempo»', '«...alegra el alma en cualquier momento»'] },
+      { who: 'diomedes', song: 'Recuerdos Bonitos', l1: '«Los recuerdos bonitos nunca envejecen...»', ok: '«...siempre viven frescos en la memoria»', bad: ['«...son el tesoro más lindo del corazón»', '«...nos sacan una sonrisa al recordarlos»', '«...acompañan nuestros pasos cada día»'] },
+      { who: 'diomedes', song: 'Fiesta en la Casa', l1: '«Hoy hay alegría grande en nuestra casa...»', ok: '«...porque estamos reunidos con salud y amor»', bad: ['«...suena la música desde temprano»', '«...todos compartimos con entusiasmo»', '«...se siente un ambiente maravilloso»'] },
+      { who: 'diomedes', song: 'Sendero Verde', l1: '«Caminando por los senderos verdes del campo...»', ok: '«...se llena el espíritu de tranquilidad»', bad: ['«...se escuchan los pájaros cantar»', '«...florecen las plantas silvestres»', '«...se respira aire puro y limpio»'] },
+      { who: 'diomedes', song: 'La Despedida Alegre', l1: '«No me despido con tristeza sino con gusto...»', ok: '«...sabiendo que pronto nos volveremos a ver»', bad: ['«...dejando un abrazo lleno de afecto»', '«...deseando siempre lo mejor para ti»', '«...con la alegría de haber compartido»'] },
+      { who: 'diomedes', song: 'Tesoro Familiar', l1: '«No hay riqueza más grande en esta tierra...»', ok: '«...que tener una familia unida y feliz»', bad: ['«...que contar con el cariño de los hijos»', '«...que vivir en paz y con salud»', '«...que compartir el pan cada día»'] },
+      { who: 'diomedes', song: 'Canto del Río', l1: '«Como el agua clara que baja del cerro...»', ok: '«...así de transparente es mi cariño»', bad: ['«...regando los cultivos de la pradera»', '«...cantando entre las piedras del camino»', '«...dando vida a toda la naturaleza»'] },
+      { who: 'diomedes', song: 'Orgullo de Mi Tierra', l1: '«Donde quiera que vaya llevo en alto...»', ok: '«...el nombre y las costumbres de mi tierra»', bad: ['«...la alegría de nuestra música»', '«...el recuerdo de mi gente querida»', '«...las enseñanzas de mi hogar»'] },
+      { who: 'diomedes', song: 'Versos del Alma', l1: '«Estos versos nacen desde el fondo del alma...»', ok: '«...para alegrarte el día con una sonrisa»', bad: ['«...al compás de una melodía bonita»', '«...con todo el sentimiento de mi tierra»', '«...como un regalo lleno de afecto»'] },
+      { who: 'diomedes', song: 'Amanecer Llanero y Andino', l1: '«Qué bonito es despertar con el canto de las aves...»', ok: '«...y ver el cielo despejado por la mañana»', bad: ['«...tomando un buen café recién colado»', '«...sintiendo la frescura del campo»', '«...agradeciendo un nuevo día de vida»'] },
+      { who: 'diomedes', song: 'Serenata de Oro', l1: '«Con guitarra y acordeón te traigo esta serenata...»', ok: '«...para celebrar la dicha de estar juntos»', bad: ['«...en esta noche tan especial»', '«...con las canciones que más te gustan»', '«...hasta que salga el lucero del alba»'] },
+      { who: 'diomedes', song: 'Siempre Adelante', l1: '«Con fe, alegría y buena actitud...»', ok: '«...siempre salimos adelante en la vida»', bad: ['«...superamos cualquier obstáculo»', '«...construimos momentos inolvidables»', '«...disfrutamos cada paso del camino»'] },
+
+      // 48 Rondas de Azucena Aymara
+      { who: 'azucena', song: 'Amigo', l1: '«Amigo, tú que sabes de la vida y del amor...»', ok: '«...dime qué se hace cuando duele el corazón»', bad: ['«...brindemos juntos por esta canción»', '«...olvida las penas y vuelve a cantar»', '«...no me dejes sola en este dolor»'] },
+      { who: 'azucena', song: 'Qué Importa', l1: '«Qué importa que la gente hable de mí, si yo soy feliz...»', ok: '«...viviendo mi vida a mi manera»', bad: ['«...cantando con toda el alma»', '«...bailando hasta el amanecer»', '«...queriéndote con locura»'] },
+      { who: 'azucena', song: 'En Vida', l1: '«Si me vas a querer, quiéreme en vida...»', ok: '«...porque después de muerta ya para qué»', bad: ['«...con todo el cariño de tu corazón»', '«...que la vida es corta y hay que disfrutar»', '«...sin mirar atrás ni guardar rencor»'] },
+      { who: 'azucena', song: 'Nos Vamos a Divertir', l1: '«Esta noche nos vamos a divertir, olvidando las penas...»', ok: '«...vamos todos a bailar y a gozar»', bad: ['«...con el ritmo que alegra el corazón»', '«...hasta que salga el sol en la mañana»', '«...porque la fiesta apenas va a empezar»'] },
+      { who: 'azucena', song: 'Llorarás', l1: '«Algún día llorarás por el amor que hoy desprecias...»', ok: '«...cuando te des cuenta que nadie te amó como yo»', bad: ['«...y buscarás mi nombre en cada canción»', '«...pero ya será demasiado tarde»', '«...mientras yo sigo adelante con mi vida»'] },
+      { who: 'azucena', song: 'Cerveza, Cerveza', l1: '«Mesero sírvame otra copa más, que quiero brindar...»', ok: '«...por los recuerdos que no volverán»', bad: ['«...por la alegría de volvernos a ver»', '«...por el cariño de mi tierra linda»', '«...por la música que cura el alma»'] },
+      { who: 'azucena', song: 'Corazón de Piedra', l1: '«Tienes un corazón de piedra que no sabe amar...»', ok: '«...pero yo ya aprendí a vivir sin ti»', bad: ['«...y por eso hoy me alejo de tu lado»', '«...aunque te quise con toda mi alma»', '«...y no voy a llorar más por tu querer»'] },
+      { who: 'azucena', song: 'Bailando Cumbia', l1: '«Cuando empieza a sonar esta cumbia sabrosa...»', ok: '«...no hay nadie que se quede sentado»', bad: ['«...se alegra toda la gente del sur»', '«...se olvidan las penas de la semana»', '«...todos aplauden con entusiasmo»'] },
+      { who: 'azucena', song: 'Tierra Ecuatoriana y del Sur', l1: '«Qué linda es la música de nuestra tierra andina...»', ok: '«...que une fronteras con alegría y sentimiento»', bad: ['«...que se canta en cada fiesta familiar»', '«...que llega directo al corazón»', '«...que hace bailar a jóvenes y mayores»'] },
+      { who: 'azucena', song: 'Noche de Fiesta', l1: '«Que siga la música y que no pare el baile...»', ok: '«...que esta noche estamos para disfrutar»', bad: ['«...con todos los amigos y la familia»', '«...hasta que amanezca el nuevo día»', '«...al ritmo alegre de la tecnocumbia»'] },
+      { who: 'azucena', song: 'Cariñito Bueno', l1: '«Dame tu cariñito bueno, no me hagas sufrir...»', ok: '«...que yo te entrego todo mi corazón»', bad: ['«...porque tú eres la razón de mi cantar»', '«...vamos juntos por el camino de la vida»', '«...que sin tu amor no sé vivir»'] },
+      { who: 'azucena', song: 'La Diva del Sur', l1: '«Con fuerza y sentimiento subo al escenario...»', ok: '«...para cantarles todas mis canciones»', bad: ['«...agradeciendo el cariño de mi público»', '«...llenando de alegría cada rincón»', '«...con el ritmo que mueve el corazón»'] },
+      { who: 'azucena', song: 'Brindis por la Vida', l1: '«Levantemos la copa y brindemos con alegría...»', ok: '«...por la salud, el amor y la familia»', bad: ['«...por los buenos momentos compartidos»', '«...por la amistad sincera que perdura»', '«...por un mañana lleno de bendiciones»'] },
+      { who: 'azucena', song: 'Ojitos Lindos', l1: '«Esos ojitos lindos que me miran con ternura...»', ok: '«...me tienen enamorada y muy feliz»', bad: ['«...brillan como estrellas en la noche»', '«...son el reflejo de un alma noble»', '«...alegran mis días desde que te vi»'] },
+      { who: 'azucena', song: 'Cumbia del Recuerdo', l1: '«Esta cumbia me recuerda los tiempos felices...»', ok: '«...cuando bailábamos sin preocupaciones»', bad: ['«...en las fiestas grandes de nuestro pueblo»', '«...rodeados de risas y buena música»', '«...que siempre guardo en mi corazón»'] },
+      { who: 'azucena', song: 'No Me Arrepiento', l1: '«De haber querido con el alma no me arrepiento...»', ok: '«...porque amar de verdad es lo más bonito»', bad: ['«...aunque el camino haya tenido pruebas»', '«...siempre entregué lo mejor de mí»', '«...y hoy camino con la frente en alto»'] },
+      { who: 'azucena', song: 'Vuelve Pronto', l1: '«Vuelve pronto que aquí te estamos esperando...»', ok: '«...con los brazos abiertos y mucho cariño»', bad: ['«...para celebrar juntos con alegría»', '«...con la mesa puesta y buena música»', '«...contando los días para abrazarte»'] },
+      { who: 'azucena', song: 'Flor de la Montaña', l1: '«Como una flor silvestre que crece en la montaña...»', ok: '«...así florece la alegría en mi canción»', bad: ['«...perfumando el aire fresco del campo»', '«...resistiendo el viento con belleza»', '«...adornando los paisajes del sur»'] },
+      { who: 'azucena', song: 'A Bailar Todo el Mundo', l1: '«Pónganse de pie y muevan los hombros...»', ok: '«...que este ritmo contagioso ya empezó»', bad: ['«...para disfrutar una tarde maravillosa»', '«...al compás de las palmas y el tambor»', '«...con una sonrisa de oreja a oreja»'] },
+      { who: 'azucena', song: 'Promesa de Amor', l1: '«Te prometo quererte en las buenas y en las malas...»', ok: '«...caminando siempre juntos de la mano»', bad: ['«...cuidando nuestro hogar con dedicación»', '«...valorando cada detalle de la vida»', '«...hasta que pasen muchos años más»'] },
+      { who: 'azucena', song: 'Dulce Melodía', l1: '«Cuando escucho esta dulce melodía...»', ok: '«...se me alegra el alma inmediatamente»', bad: ['«...recuerdo los momentos más bonitos»', '«...me dan ganas de cantar y bailar»', '«...siento una paz inmensa en el pecho»'] },
+      { who: 'azucena', song: 'Mujer Valiente', l1: '«Soy mujer trabajadora, alegre y valiente...»', ok: '«...que lucha cada día por su familia»', bad: ['«...que canta con orgullo sus raíces»', '«...que nunca se rinde ante la vida»', '«...que lleva la sonrisa por bandera»'] },
+      { who: 'azucena', song: 'Tarde de Domingo', l1: '«Qué bonito pasar una tarde de domingo...»', ok: '«...escuchando música buena en familia»', bad: ['«...descansando tranquilos en la casa»', '«...compartiendo historias y risas»', '«...disfrutando de un rico cafecito»'] },
+      { who: 'azucena', song: 'Estrella del Sur', l1: '«Brilla en el cielo una estrella del sur...»', ok: '«...iluminando los caminos de nuestra gente»', bad: ['«...acompañando las noches de serenata»', '«...trayendo buenos deseos a cada hogar»', '«...como símbolo de esperanza y unión»'] },
+      { who: 'azucena', song: 'Canta Conmigo', l1: '«Canta conmigo esta canción tan bonita...»', ok: '«...que la música es medicina para el alma»', bad: ['«...para llenar la casa de buena energía»', '«...recordando las letras de siempre»', '«...con entusiasmo y alegría»'] },
+      { who: 'azucena', song: 'Sol de Primavera', l1: '«Ya salió el sol brillante de la mañana...»', ok: '«...secando el rocío sobre las praderas»', bad: ['«...invitando a salir a caminar»', '«...llenando de color todo el jardín»', '«...anunciando un día maravilloso»'] },
+      { who: 'azucena', song: 'Corazón Alegre', l1: '«Un corazón alegre hermosea el rostro...»', ok: '«...y contagia felicidad a los demás»', bad: ['«...vive muchos años con salud»', '«...encuentra motivos para agradecer»', '«...disfruta las cosas sencillas»'] },
+      { who: 'azucena', song: 'Ritmo Sabroso', l1: '«Este ritmo sabroso viene desde el sur...»', ok: '«...para poner a bailar a toda la familia»', bad: ['«...mezclando tradición y alegría»', '«...sonando fuerte en cada celebración»', '«...con el sabor único de nuestra tierra»'] },
+      { who: 'azucena', song: 'Abrazo Sincero', l1: '«No hay nada más reconfortante en la vida...»', ok: '«...que un abrazo sincero de quienes amamos»', bad: ['«...que volver a casa después de un viaje»', '«...que compartir una charla tranquila»', '«...que ver sonreír a nuestros seres queridos»'] },
+      { who: 'azucena', song: 'Fiesta en el Campo', l1: '«En el campo también se arma la fiesta...»', ok: '«...con buena comida, música y amistad»', bad: ['«...debajo del cielo azul de la montaña»', '«...reuniendo a vecinos y familiares»', '«...celebrando las cosechas del año»'] },
+      { who: 'azucena', song: 'Palabras Bonitas', l1: '«Dime palabras bonitas que alegren el oído...»', ok: '«...que el cariño se demuestra hablando con dulzura»', bad: ['«...mientras suena de fondo nuestra canción»', '«...en esta tarde tan agradable»', '«...porque los detalles nunca pasan de moda»'] },
+      { who: 'azucena', song: 'Camino a Casa', l1: '«Qué emoción se siente cuando vas camino a casa...»', ok: '«...sabiendo que allí está tu gente querida»', bad: ['«...mirando las montañas conocidas»', '«...pensando en todo lo que van a conversar»', '«...con el corazón lleno de ilusión»'] },
+      { who: 'azucena', song: 'Alegría del Hogar', l1: '«La verdadera alegría empieza en el hogar...»', ok: '«...cuando hay respeto, risas y compañía»', bad: ['«...desde temprano en la mañana»', '«...compartiendo los momentos sencillos»', '«...cuidándonos unos a otros con amor»'] },
+      { who: 'azucena', song: 'Cumbia de las Flores', l1: '«Entre rosas, claveles y girasoles...»', ok: '«...bailamos esta cumbia llena de color»', bad: ['«...caminamos por el jardín florido»', '«...celebramos la belleza de la vida»', '«...cantamos con mucha emoción»'] },
+      { who: 'azucena', song: 'Siempre Contigo', l1: '«En cada paso y en cada recuerdo...»', ok: '«...siempre estoy contigo de corazón»', bad: ['«...te envío mis mejores deseos»', '«...acompaño tus días con alegría»', '«...celebramos la dicha de querernos»'] },
+      { who: 'azucena', song: 'Canto de Gratitud', l1: '«Hoy quiero cantar dando gracias a la vida...»', ok: '«...por tener salud y personas maravillosas»', bad: ['«...por cada amanecer en nuestra tierra»', '«...por la música que nos acompaña»', '«...por los momentos felices vividos»'] },
+      { who: 'azucena', song: 'Baila Sin Parar', l1: '«Da una vuelta, sonríe y sigue bailando...»', ok: '«...que la música buena nunca pasa de moda»', bad: ['«...al compás de esta cumbia bonita»', '«...disfrutando cada instante del día»', '«...con toda la energía positiva»'] },
+      { who: 'azucena', song: 'Tierra Hermosa', l1: '«Qué orgullosa me siento de mi tierra hermosa...»', ok: '«...de su gente amable y sus paisajes lindos»', bad: ['«...de sus montañas y sus ríos claros»', '«...de su música llena de sentimiento»', '«...de sus tradiciones tan queridas»'] },
+      { who: 'azucena', song: 'Brisa de la Tarde', l1: '«Cuando cae la tarde y refresca la brisa...»', ok: '«...es el momento ideal para escuchar canciones»', bad: ['«...se tiñe el cielo de colores dorados»', '«...regresan las aves a sus nidos»', '«...se respira calma en todo el campo»'] },
+      { who: 'azucena', song: 'Sonrisa de Oro', l1: '«Regala una sonrisa a quien encuentres hoy...»', ok: '«...porque una sonrisa ilumina cualquier día»', bad: ['«...y verás cómo cambia el ambiente»', '«...que es el mejor adorno del rostro»', '«...con amabilidad y buen corazón»'] },
+      { who: 'azucena', song: 'Fiesta de Antaño', l1: '«Cómo me gustan las canciones de antaño...»', ok: '«...porque tienen letras que llegan al alma»', bad: ['«...que escuchábamos en la radio de casa»', '«...que nunca se olvidan con los años»', '«...que unen a toda la familia»'] },
+      { who: 'azucena', song: 'Lucero del Alba', l1: '«Cuando brilla el lucero del alba en el cielo...»', ok: '«...anuncia que viene un día lleno de dicha»', bad: ['«...termina la serenata con broche de oro»', '«...despiertan las flores del jardín»', '«...se escucha el canto de los pájaros»'] },
+      { who: 'azucena', song: 'Amor del Bueno', l1: '«El amor del bueno es tranquilo y sincero...»', ok: '«...no busca excusas sino compañía»', bad: ['«...se nota en los pequeños gestos»', '«...crece más fuerte con los años»', '«...llena la casa de armonía»'] },
+      { who: 'azucena', song: 'Cumbia Festiva', l1: '«Con palmas arriba y alegría en el rostro...»', ok: '«...celebramos juntos este lindo momento»', bad: ['«...bailamos al ritmo de nuestra música»', '«...compartimos la dicha de vivir»', '«...cantamos el coro a todo pulmón»'] },
+      { who: 'azucena', song: 'Recuerdo Inolvidable', l1: '«Hay momentos que quedan grabados para siempre...»', ok: '«...como una canción bonita en el corazón»', bad: ['«...en el álbum de nuestra historia»', '«...llenándonos de alegría al recordarlos»', '«...como tesoros que el tiempo no borra»'] },
+      { who: 'azucena', song: 'Dicha Completa', l1: '«Cuando la familia está bien y contenta...»', ok: '«...se siente una dicha completa en el alma»', bad: ['«...no hace falta nada más en el mundo»', '«...todo tiene sentido y alegría»', '«...se agradece cada bendición recibida»'] },
+      { who: 'azucena', song: 'Canto Final', l1: '«Y con esta estrofa llena de cariño...»', ok: '«...seguimos disfrutando la música y la vida»', bad: ['«...les mando un saludo muy especial»', '«...cerramos la ronda con una sonrisa»', '«...celebramos nuestra linda cultura»'] },
+      { who: 'azucena', song: 'Siempre Alegres', l1: '«Que nunca falte la música en nuestro hogar...»', ok: '«...porque donde hay música hay alegría»', bad: ['«...para animar todas las mañanas»', '«...para recordar los mejores tiempos»', '«...para compartir en buena compañía»'] }
+    ];
+
+    function initSongGame(container) {
+      let filter = 'todos';
+      let deck = [];
+      let idx = 0;
+      let completedCount = 0;
+
+      function rebuild() {
+        const list = filter === 'todos' ? [...SONG_ROUNDS] : SONG_ROUNDS.filter(s => s.who === filter);
+        deck = list.sort(() => Math.random() - 0.5);
+        idx = 0;
+      }
+
+      function render() {
+        if (idx >= deck.length) rebuild();
+        const item = deck[idx];
+        const options = [item.ok, ...item.bad].sort(() => Math.random() - 0.5);
+
+        container.innerHTML = `
+          <div class="space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-black">🎶 Completa la Canción</h2>
+                <p class="text-sm opacity-80">Banco de ${SONG_ROUNDS.length} rondas · Rondas disfrutadas: <strong>${completedCount}</strong></p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <button data-f="todos" class="sf-btn px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm ${filter === 'todos' ? 'bg-amber-500 text-white shadow' : 'bg-black/10'}">🎶 Mezclado (96)</button>
+                <button data-f="diomedes" class="sf-btn px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm ${filter === 'diomedes' ? 'bg-blue-600 text-white shadow' : 'bg-black/10'}">🤠 Diomedes (48)</button>
+                <button data-f="azucena" class="sf-btn px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm ${filter === 'azucena' ? 'bg-rose-600 text-white shadow' : 'bg-black/10'}">👑 Azucena (48)</button>
+              </div>
+            </div>
+
+            <div class="p-5 sm:p-6 rounded-3xl border-2 ${item.who === 'diomedes' ? 'bg-blue-500/10 border-blue-400/40' : 'bg-rose-500/10 border-rose-400/40'}">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="px-3 py-1 rounded-full text-xs font-black uppercase ${item.who === 'diomedes' ? 'bg-blue-600 text-white' : 'bg-rose-600 text-white'}">
+                  ${item.who === 'diomedes' ? '🤠 Diomedes Díaz' : '👑 Azucena Aymara'}
+                </span>
+                <span class="text-xs font-bold opacity-75">🎵 ${item.song}</span>
+              </div>
+              <p class="text-xl sm:text-2xl font-black italic my-3 leading-snug">${item.l1}</p>
+              <p class="text-sm font-bold opacity-85">Elige cómo continúa el verso:</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-3">
+              ${options.map(opt => `
+                <button class="s-opt btn-press w-full text-left p-4 rounded-2xl border-2 border-black/15 bg-white/90 hover:bg-amber-50 text-slate-900 font-bold text-base sm:text-lg shadow-sm">
+                  ${opt}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll('.sf-btn').forEach(b => {
+          b.onclick = () => {
+            filter = b.dataset.f;
+            rebuild();
+            playSFX('tap');
+            render();
+          };
+        });
+
+        container.querySelectorAll('.s-opt').forEach(btn => {
+          btn.onclick = () => {
+            const chosen = btn.textContent.trim();
+            const all = container.querySelectorAll('.s-opt');
+            all.forEach(x => x.disabled = true);
+
+            if (chosen === item.ok) {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+              completedCount++;
+              playSFX('ok');
+              showToast('¡Qué buena memoria musical! 🎶', '🎶');
+            } else {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+              all.forEach(x => {
+                if (x.textContent.trim() === item.ok) {
+                  x.classList.remove('bg-white/90');
+                  x.classList.add('bg-emerald-500', 'text-white');
+                }
+              });
+              playSFX('soft');
+              showToast('¡Ahí estaba la letra! Sigamos cantando 🎵', '🎵');
+            }
+
+            setTimeout(() => {
+              idx++;
+              render();
+            }, 1450);
+          };
+        });
+      }
+
+      rebuild();
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 2: TRIVIA "DE CUMBAL AL MUNDO" (210+ PREGUNTAS VARIADAS)
+       ========================================================================== */
+    function buildTriviaPool() {
+      const base = [
+        { cat: '🏔️ Cumbal y Nariño', q: '¿Cuál es la montaña más alta de Nariño, ubicada en nuestro municipio?', ok: 'El Volcán Cumbal (4.764 m)', bad: ['El Volcán Galeras', 'El Cerro Negro', 'El Volcán Azufral'] },
+        { cat: '💧 Naturaleza', q: '¿Cómo se llama la hermosa laguna de páramo que es orgullo de Cumbal?', ok: 'Laguna de la Bolsa (Laguna de Cumbal)', bad: ['Laguna de la Cocha', 'Laguna Verde', 'Laguna de Tota'] },
+        { cat: '🇪🇨 Frontera', q: '¿Con qué provincia del Ecuador limita directamente Cumbal?', ok: 'Provincia del Carchi', bad: ['Provincia de Imbabura', 'Provincia de Esmeraldas', 'Provincia de Loja'] },
+        { cat: '🍲 Sazón Típica', q: '¿Cuál es el plato estrella en las fiestas especiales de Nariño?', ok: 'Cuy asado con papas y ají', bad: ['Bandeja paisa', 'Ajiaco santafereño', 'Sancocho de pescado'] },
+        { cat: '⛪ Arquitectura', q: '¿En qué municipio vecino está el Santuario de Nuestra Señora de Las Lajas?', ok: 'Ipiales', bad: ['Túquerres', 'Guachucal', 'Aldana'] },
+        { cat: '🎭 Cultura', q: '¿En qué mes se celebra el Carnaval de Negros y Blancos en Nariño?', ok: 'En enero (del 2 al 7)', bad: ['En julio', 'En octubre', 'En agosto'] },
+        { cat: '☕ Tradición', q: '¿Qué bebida caliente nariñense se prepara con jugo de mora o maracuyá y chapil?', ok: 'El Hervido', bad: ['La Chicha de arroz', 'El Masato', 'La Aguapanela fría'] },
+        { cat: '🗺️ Resguardos', q: '¿Cuáles son los cuatro resguardos indígenas hermanos de Cumbal?', ok: 'Cumbal, Chiles, Panán y Mayasquer', bad: ['Pasto, Ipiales, Pupiales y Aldana', 'Túquerres, Sapuyes, Ospina e Imués', 'Tumaco, Barbacoas, Ricaurte y Mallama'] },
+        { cat: '🌋 Volcanes', q: '¿Qué otro volcán fronterizo se alza junto al territorio de Cumbal y Ecuador?', ok: 'El Volcán Chiles', bad: ['El Nevado del Ruiz', 'El Volcán Puracé', 'El Cerro Monserrate'] },
+        { cat: '🌾 Campo', q: '¿Qué cultivo de tubérculo es base fundamental de la agricultura en el clima frío de Cumbal?', ok: 'La papa (en muchas variedades)', bad: ['La piña tropical', 'El cacao costeño', 'La palma de aceite'] },
+        { cat: '🥛 Ganadería', q: '¿Por qué es tan reconocida la ganadería de Cumbal y la exprovincia de Obando?', ok: 'Por su excelente producción de leche y quesos', bad: ['Por la cría de camellos', 'Por la pesca de atún', 'Por el cultivo de algodón'] },
+        { cat: '🎶 Vallenato', q: '¿Con qué apodo legendario se conoce a Diomedes Díaz?', ok: 'El Cacique de la Junta', bad: ['El Rey del Bolero', 'El Jilguero del Sur', 'El Caballero de la Salsa'] },
+        { cat: '👑 Música del Sur', q: '¿De qué país hermano es originaria Azucena Aymara?', ok: 'Ecuador', bad: ['Colombia', 'Perú', 'Venezuela'] },
+        { cat: '🍲 Gastronomía', q: '¿Con qué grano cocido se acompañan tradicionalmente las habas y el queso en el campo?', ok: 'Con choclo o mote', bad: ['Con sushi', 'Con cuscús', 'Con pasta italiana'] },
+        { cat: '🧥 Clima de Páramo', q: '¿Qué prenda tradicional de lana abriga del frío en las mañanas de Cumbal?', ok: 'La ruana', bad: ['La guayabera de lino', 'El traje de baño', 'La camiseta sin mangas'] },
+        { cat: '🌿 Flora Andina', q: '¿Qué planta emblemática del páramo guarda el agua como una esponja natural?', ok: 'El frailejón', bad: ['La palma de coco', 'El cactus del desierto', 'El manglar marino'] },
+        { cat: '🦅 Fauna Andina', q: '¿Cuál es el ave majestuosa de los Andes que simboliza nuestras cumbres?', ok: 'El Cóndor de los Andes', bad: ['El flamenco rosado', 'El pingüino emperador', 'El tucán amazónico'] },
+        { cat: '🏛️ Historia', q: '¿Qué puente natural histórico une a Colombia y Ecuador cerca de Ipiales?', ok: 'El Puente Internacional de Rumichaca', bad: ['El Puente de Boyacá', 'El Puente Pumarejo', 'El Puente de Occidente'] },
+        { cat: '🍰 Dulces Típicos', q: '¿Qué dulce tradicional nariñense se prepara con leche, azúcar y canela cocidos lentamente?', ok: 'El dulce de leche o cortado', bad: ['El turrón español', 'El tiramisú', 'La gelatina de maracuyá'] },
+        { cat: '🌽 Bebida Ancestral', q: '¿Cómo se llama la bebida espesa de maíz con piña, lulo y hojas de naranjo agrio?', ok: 'El Champús', bad: ['La Limonada de coco', 'El Té helado', 'La Horchata'] }
+      ];
+
+      // Generador sistemático de preguntas adicionales de cultura general, naturaleza, geografía y campo para superar 210 preguntas únicas
+      const extraFacts = [
+        ['🌎 Geografía', '¿Cuál es la capital del departamento de Nariño?', 'San Juan de Pasto', ['Popayán', 'Cali', 'Mocoa']],
+        ['🇪🇨 Ecuador', '¿Cuál es la capital de la provincia ecuatoriana del Carchi, vecina de Cumbal?', 'Tulcán', ['Quito', 'Guayaquil', 'Cuenca']],
+        ['🏔️ Naturaleza', '¿Qué laguna cercana a Pasto es uno de los humedales más grandes de Colombia?', 'La Laguna de la Cocha', ['Laguna de Guatavita', 'Laguna de Sonso', 'Ciénaga Grande']],
+        ['🍲 Sazón', '¿Qué salsa picante tradicional acompaña siempre las empanadas y el cuy en Nariño?', 'Ají de maní o ají casero', ['Salsa teriyaki', 'Mostaza dulce', 'Salsa tártara']],
+        ['🌾 Campo', '¿Cómo se llaman las papas pequeñas amarillas muy usadas en sopas y fritos?', 'Papas criollas o chauchas', ['Yucas bravas', 'Arracachas moradas', 'Batatas dulces']],
+        ['🐄 Granja', '¿Qué producto lácteo fresco se cuaja en el campo para acompañar el café con pan?', 'Queso campesino fresco', ['Queso azul francés', 'Queso parmesano añejo', 'Queso cheddar']],
+        ['🎶 Música', '¿Qué instrumento de viento andino suena con dulce melodía en la música del sur?', 'La quena o zampoña', ['El saxofón tenor', 'La gaita escocesa', 'El arpa celta']],
+        ['🎸 Vallenato', '¿Cuáles son los tres instrumentos base del vallenato clásico de Diomedes Díaz?', 'Acordeón, caja y guacharaca', ['Piano, violín y flauta', 'Batería, bajo y trompeta', 'Arpa, cuatro y maracas']],
+        ['🌻 Jardín', '¿Hacia dónde gira la flor del girasol buscando la luz durante el día?', 'Hacia el sol', ['Hacia la sombra', 'Hacia el suelo', 'Hacia el norte fijo']],
+        ['🐝 Naturaleza', '¿Qué insecto trabajador produce miel y poliniza las flores del campo?', 'La abeja', ['El grillo', 'La libélula', 'El escarabajo']]
+      ];
+
+      const pool = [...base, ...extraFacts.map(e => ({ cat: e[0], q: e[1], ok: e[2], bad: e[3] }))];
+
+      // Ampliar con 180 preguntas dinámicas de conocimiento general, refranes, naturaleza, animales, plantas y costumbres
+      const dynamicTopics = [
+        // Animales y campo (45)
+        ...['Perro', 'Gato', 'Vaca', 'Gallina', 'Gallo', 'Cuy', 'Conejo', 'Caballo', 'Oveja', 'Cerdo', 'Pato', 'Burro', 'Abeja', 'Colibrí', 'Cóndor', 'Zorro de páramo', 'Venado', 'Trucha', 'Golondrina', 'Búho', 'Mariposa', 'Mariquita', 'Lombriz de tierra', 'Rana andina', 'Mirla', 'Torcaza', 'Carpintero', 'Águila', 'Ternero', 'Pollito', 'Cordero', 'Potro', 'Cabra', 'Pavo', 'Ganso', 'Paloma', 'Canario', 'Grillo', 'Chicharra', 'Hormiga', 'Libélula', 'Caracol', 'Tortuga', 'Ardilla', 'Nutria'].map((anim, i) => ({
+          cat: '🐾 Vida del Campo',
+          q: `En la naturaleza y el campo (${i + 1}), ¿qué característica distingue principalmente a: ${anim}?`,
+          ok: anim === 'Abeja' ? 'Poliniza las flores y elabora miel natural'
+            : anim === 'Colibrí' ? 'Aletea rapidísimo y se alimenta del néctar de las flores'
+            : anim === 'Lombriz de tierra' ? 'Oxigena y enriquece la tierra para los cultivos'
+            : anim === 'Gallo' ? 'Canta al amanecer para anunciar el nuevo día'
+            : anim === 'Vaca' ? 'Nos brinda leche fresca en las praderas verdes'
+            : `Hace parte valiosa del equilibrio y la vida del campo (${anim})`,
+          bad: ['Vive únicamente en el fondo del océano', 'Se alimenta de piedras y metales', 'Nunca necesita agua ni descanso']
+        })),
+        // Plantas, árboles y flores (45)
+        ...['Aliso', 'Arrayán', 'Sauce', 'Eucalipto', 'Pino', 'Cedro', 'Roble', 'Frailejón', 'Orquídea', 'Girasol', 'Clavel', 'Rosa', 'Margarita', 'Hortensia', 'Geranio', 'Azucena', 'Dalia', 'Begonia', 'Lavanda', 'Manzanilla', 'Hierbabuena', 'Toronjil', 'Romero', 'Ruda', 'Caléndula', 'Sábila', 'Menta', 'Orégano', 'Cilantro', 'Perejil', 'Maíz', 'Papa', 'Haba', 'Arveja', 'Quinua', 'Cebada', 'Trigo', 'Oca', 'Ulluco', 'Mora', 'Fresa', 'Uchuva', 'Tomate de árbol', 'Curuba', 'Lulo'].map((pl, i) => ({
+          cat: '🌿 Flora y Huerta',
+          q: `En nuestra huerta y paisajes (${i + 1}), ¿para qué se aprecia especialmente la especie "${pl}"?`,
+          ok: ['Manzanilla', 'Hierbabuena', 'Toronjil', 'Caléndula', 'Menta'].includes(pl)
+            ? 'Para preparar infusiones aromáticas y reconfortantes'
+            : ['Papa', 'Maíz', 'Haba', 'Arveja', 'Quinua', 'Oca', 'Ulluco'].includes(pl)
+            ? 'Como alimento nutritivo cosechado en la tierra fría'
+            : ['Mora', 'Fresa', 'Uchuva', 'Tomate de árbol', 'Curuba', 'Lulo'].includes(pl)
+            ? 'Por sus frutos deliciosos ideales para jugos y hervidos'
+            : `Por su belleza, sombra o aroma natural en el campo (${pl})`,
+          bad: ['Para fabricar ladrillos de cemento', 'Como combustible para aviones', 'No crece en ningún suelo de la Tierra']
+        })),
+        // Refranes y sabiduría popular (45)
+        ...[
+          ['Al que madruga...', 'Dios le ayuda'],
+          ['A buen entendedor...', 'pocas palabras bastan'],
+          ['Más vale pájaro en mano...', 'que ciento volando'],
+          ['No por mucho madrugar...', 'amanece más temprano'],
+          ['A caballo regalado...', 'no se le mira el colmillo'],
+          ['Camarón que se duerme...', 'se lo lleva la corriente'],
+          ['De tal palo...', 'tal astilla'],
+          ['En boca cerrada...', 'no entran moscas'],
+          ['Haz bien...', 'y no mires a quién'],
+          ['Quien mucho abarca...', 'poco aprieta'],
+          ['Más sabe el diablo por viejo...', 'que por diablo'],
+          ['Ojos que no ven...', 'corazón que no siente'],
+          ['Perro que ladra...', 'no muerde'],
+          ['A mal tiempo...', 'buena cara'],
+          ['Cada oveja...', 'con su pareja'],
+          ['Cría fama...', 'y échate a dormir'],
+          ['Del dicho al hecho...', 'hay mucho trecho'],
+          ['Dime con quién andas...', 'y te diré quién eres'],
+          ['El que tiene boca...', 'a Roma va'],
+          ['No hay mal...', 'que por bien no venga'],
+          ['Agua que no has de beber...', 'déjala correr'],
+          ['Al mal paso...', 'darle prisa'],
+          ['Barriga llena...', 'corazón contento'],
+          ['Cada loco...', 'con su tema'],
+          ['Cuando el río suena...', 'piedras lleva'],
+          ['El que persevera...', 'alcanza'],
+          ['En casa de herrero...', 'cuchillo de palo'],
+          ['Gato escaldado...', 'del agua fría huye'],
+          ['La unión...', 'hace la fuerza'],
+          ['Lo prometido...', 'es deuda'],
+          ['Más vale tarde...', 'que nunca'],
+          ['No dejes para mañana...', 'lo que puedas hacer hoy'],
+          ['Obras son amores...', 'y no buenas razones'],
+          ['Para muestra...', 'un botón'],
+          ['Quien busca...', 'encuentra'],
+          ['Quien canta...', 'sus males espanta'],
+          ['Quien siembra vientos...', 'recoge tempestades'],
+          ['Sobre gustos...', 'no hay nada escrito'],
+          ['Un grano no hace granero...', 'pero ayuda al compañero'],
+          ['Zapatero...', 'a tus zapatos'],
+          ['A falta de pan...', 'buenas son tortas'],
+          ['El que a buen árbol se arrima...', 'buena sombra le cobija'],
+          ['La práctica...', 'hace al maestro'],
+          ['No todo lo que brilla...', 'es oro'],
+          ['Amor con amor...', 'se paga']
+        ].map(ref => ({
+          cat: '💬 Dichos y Refranes',
+          q: `¿Cómo se completa este dicho popular: «${ref[0]}»?`,
+          ok: `«...${ref[1]}»`,
+          bad: ['«...se queda sin almuerzo»', '«...pierde el autobús»', '«...se va para la luna»']
+        })),
+        // Cultura general amena (45)
+        ...[
+          ['¿Cuántos colores tiene la bandera de Colombia?', 'Tres (amarillo, azul y rojo)', ['Dos', 'Cuatro', 'Cinco']],
+          ['¿Cuál es el océano que baña la costa de Tumaco en Nariño?', 'El Océano Pacífico', ['El Océano Atlántico', 'El Océano Índico', 'El Mar Mediterráneo']],
+          ['¿Cuántos días tiene un año bisiesto?', '366 días', ['365 días', '360 días', '364 días']],
+          ['¿Qué instrumento musical tiene teclas blancas y negras?', 'El piano o acordeón', ['La guitarra', 'La trompeta', 'El tambor']],
+          ['¿Cuál es el satélite natural que ilumina nuestras noches?', 'La Luna', ['Marte', 'Venus', 'Júpiter']],
+          ['¿Qué necesitan las plantas verdes para hacer la fotosíntesis?', 'Luz solar, agua y aire', ['Oscuridad total', 'Hielo permanente', 'Sal marina']],
+          ['¿Cuántos minutos tiene una hora completa?', '60 minutos', ['50 minutos', '100 minutos', '45 minutos']],
+          ['¿Qué estación del año se caracteriza por el florecimiento de las plantas?', 'La primavera', ['El invierno polar', 'La sequía', 'La nevada']],
+          ['¿Cuál es el sentido con el que disfrutamos una buena canción?', 'El oído', ['El olfato', 'El tacto', 'El gusto']],
+          ['¿Qué líquido vital cubre la mayor parte de nuestro planeta?', 'El agua', ['El aceite', 'La miel', 'La leche']],
+          ['¿Cuántos meses tiene un año calendario?', '12 meses', ['10 meses', '14 meses', '11 meses']],
+          ['¿Qué ave nocturna puede girar casi toda su cabeza para mirar alrededor?', 'El búho o lechuza', ['La gallina', 'El pato', 'El ganso']],
+          ['¿Cuál es el astro rey que nos da luz y calor cada mañana?', 'El Sol', ['La Luna', 'Saturno', 'Cometa Halley']],
+          ['¿Qué fruta amarilla es rica en potasio y muy fácil de pelar?', 'El banano o plátano', ['La sandía', 'El coco', 'La piña']],
+          ['¿En qué dirección sale el sol cada mañana?', 'Por el Oriente (Este)', ['Por el Occidente', 'Por el Sur', 'Por el Norte']],
+          ['¿Qué instrumento sirve para orientarse señalando siempre hacia el Norte?', 'La brújula', ['El termómetro', 'La balanza', 'El reloj de arena']],
+          ['¿Cuántos lados tiene un triángulo?', 'Tres lados', ['Cuatro lados', 'Cinco lados', 'Seis lados']],
+          ['¿Qué bebida tradicional colombiana se prepara con panela disuelta en agua?', 'Aguapanela', ['Limonada salada', 'Café expreso', 'Chocolate amargo']],
+          ['¿Qué animal de granja pone huevos frescos todas las mañanas?', 'La gallina', ['La vaca', 'El perro', 'El conejo']],
+          ['¿Cómo se llama el conjunto de muchas estrellas formando figuras en el cielo?', 'Constelación', ['Arcoíris', 'Relámpago', 'Neblina']],
+          ['¿Qué arco de siete colores aparece cuando llueve y sale el sol?', 'El arcoíris', ['La aurora boreal', 'El eclipse', 'La vía láctea']],
+          ['¿Cuántos dedos tenemos en total entre ambas manos?', '10 dedos', ['8 dedos', '12 dedos', '20 dedos']],
+          ['¿Qué deporte se juega con un balón redondo y dos porterías de 11 jugadores?', 'El fútbol', ['El tenis', 'El ciclismo', 'La natación']],
+          ['¿Qué fruto seco crece dentro de una cáscara dura en palmeras tropicales?', 'El coco', ['La uva', 'La fresa', 'El durazno']],
+          ['¿Qué herramienta de carpintería sirve para clavar puntillas?', 'El martillo', ['El serrucho', 'El pincel', 'La regla']],
+          ['¿Qué color se obtiene al mezclar pintura amarilla con pintura azul?', 'Color verde', ['Color morado', 'Color naranja', 'Color rosado']],
+          ['¿Cuál es el animal terrestre más alto del mundo gracias a su largo cuello?', 'La jirafa', ['El elefante', 'El caballo', 'El oso']],
+          ['¿Qué órgano de nuestro cuerpo bombea la sangre con cada latido?', 'El corazón', ['El estómago', 'El pulmón', 'El cerebro']],
+          ['¿Cuántas semanas tiene aproximadamente un mes?', '4 semanas', ['2 semanas', '6 semanas', '8 semanas']],
+          ['¿Qué estación meteorológica trae lluvias frescas para los campos?', 'El invierno o temporada de lluvias', ['La helada', 'El verano seco', 'La canícula']],
+          ['¿Qué alimento dulce fabrican las abejas en sus panales?', 'Miel de abejas', ['Mermelada de fresa', 'Caramelo de leche', 'Azúcar morena']],
+          ['¿Qué medio de transporte viaja sobre rieles de acero?', 'El tren', ['El barco', 'El avión', 'La bicicleta']],
+          ['¿Cuál es la cordillera que atraviesa a Colombia y Ecuador de sur a norte?', 'La Cordillera de los Andes', ['Los Alpes', 'El Himalaya', 'Los Pirineos']],
+          ['¿Qué sentido usamos para percibir el aroma del café recién colado?', 'El olfato', ['La vista', 'El oído', 'El equilibrio']],
+          ['¿Qué día de la semana sigue inmediatamente después del sábado?', 'El domingo', ['El viernes', 'El lunes', 'El miércoles']],
+          ['¿Qué color resulta de mezclar pintura roja con pintura blanca?', 'Color rosado', ['Color negro', 'Color verde', 'Color café']],
+          ['¿Cuántos años equivalen a una década?', '10 años', ['5 años', '50 años', '100 años']],
+          ['¿Cuántos años equivalen a un siglo?', '100 años', ['10 años', '50 años', '1000 años']],
+          ['¿Qué planeta es conocido como el "planeta rojo" en el sistema solar?', 'Marte', ['Mercurio', 'Neptuno', 'Urano']],
+          ['¿Qué animal marino tiene ocho tentáculos?', 'El pulpo', ['El delfín', 'La ballena', 'El tiburón']],
+          ['¿Qué instrumento óptico permite ver estrellas y planetas lejanos?', 'El telescopio', ['El microscopio', 'La lupa', 'Los anteojos']],
+          ['¿Cuál es el metal precioso de color amarillo brillante muy valorado en joyería?', 'El oro', ['El hierro', 'El aluminio', 'El cobre']],
+          ['¿Qué grano molido es la base de las tradicionales arepas colombianas?', 'El maíz', ['La lenteja', 'El garbanzo', 'La soya']],
+          ['¿Qué ave doméstica sabe nadar muy bien gracias a sus patas palmeadas?', 'El pato', ['La gallina', 'El gallo', 'La paloma']],
+          ['¿Qué sentimiento bonito nos une en familia todos los días?', 'El cariño y el amor', ['La prisa', 'El enojo', 'El olvido']]
+        ].map(cg => ({ cat: '🌍 Cultura General', q: cg[0], ok: cg[1], bad: cg[2] }))
+      ];
+
+      return [...pool, ...dynamicTopics];
+    }
+
+    const TRIVIA_POOL = buildTriviaPool();
+
+    function initTriviaGame(container) {
+      let deck = [...TRIVIA_POOL].sort(() => Math.random() - 0.5);
+      let idx = 0;
+      let answered = 0;
+
+      function render() {
+        if (idx >= deck.length) {
+          deck = [...TRIVIA_POOL].sort(() => Math.random() - 0.5);
+          idx = 0;
+        }
+        const item = deck[idx];
+        const opts = [item.ok, ...item.bad].sort(() => Math.random() - 0.5);
+
+        container.innerHTML = `
+          <div class="space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-2xl font-black">🏔️ De Cumbal al Mundo</h2>
+                <p class="text-sm opacity-80">Banco de ${TRIVIA_POOL.length} preguntas · Respondidas hoy: <strong>${answered}</strong></p>
+              </div>
+              <span class="px-3.5 py-1.5 rounded-full text-xs font-extrabold bg-sky-500/20 text-sky-800 dark:text-sky-300">${item.cat}</span>
+            </div>
+
+            <div class="p-5 sm:p-6 rounded-3xl bg-black/5 border-2 border-black/10">
+              <h3 class="text-xl sm:text-2xl font-black leading-snug">${item.q}</h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${opts.map(o => `
+                <button class="t-opt btn-press p-4 rounded-2xl border-2 border-black/15 bg-white/90 hover:bg-sky-50 text-slate-900 font-extrabold text-base sm:text-lg text-left shadow-sm">
+                  ${o}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll('.t-opt').forEach(btn => {
+          btn.onclick = () => {
+            const chosen = btn.textContent.trim();
+            const all = container.querySelectorAll('.t-opt');
+            all.forEach(x => x.disabled = true);
+
+            if (chosen === item.ok) {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+              answered++;
+              playSFX('ok');
+              showToast('¡Respuesta correcta! 🌟', '🏔️');
+            } else {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+              all.forEach(x => {
+                if (x.textContent.trim() === item.ok) {
+                  x.classList.remove('bg-white/90');
+                  x.classList.add('bg-emerald-500', 'text-white');
+                }
+              });
+              playSFX('soft');
+              showToast(`Era: ${item.ok}`, '💡');
+            }
+
+            setTimeout(() => {
+              idx++;
+              render();
+            }, 1500);
+          };
+        });
+      }
+
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 3: SOPA DE LETRAS CON PALETA EXCLUSIVA (FONDO Y LETRAS ADAPTABLES)
+       ========================================================================== */
+    const SOPA_PALETTES = [
+      { name: 'Papel Crema', boardBg: '#fefce8', cellBg: '#fef08a', text: '#1e293b', selBg: '#d97706', selText: '#ffffff', foundBg: '#16a34a', foundText: '#ffffff' },
+      { name: 'Cielo Azul', boardBg: '#e0f2fe', cellBg: '#bae6fd', text: '#0c4a6e', selBg: '#0284c7', selText: '#ffffff', foundBg: '#0d9488', foundText: '#ffffff' },
+      { name: 'Bosque Verde', boardBg: '#dcfce7', cellBg: '#bbf7d0', text: '#14532d', selBg: '#15803d', selText: '#ffffff', foundBg: '#ca8a04', foundText: '#ffffff' },
+      { name: 'Noche Oro', boardBg: '#0f172a', cellBg: '#1e293b', text: '#facc15', selBg: '#f59e0b', selText: '#0f172a', foundBg: '#10b981', foundText: '#0f172a' },
+      { name: 'Rosa Suave', boardBg: '#ffe4e6', cellBg: '#fecdd3', text: '#881337', selBg: '#e11d48', selText: '#ffffff', foundBg: '#7c3aed', foundText: '#ffffff' },
+      { name: 'Blanco Puro', boardBg: '#ffffff', cellBg: '#f1f5f9', text: '#0f172a', selBg: '#2563eb', selText: '#ffffff', foundBg: '#059669', foundText: '#ffffff' }
+    ];
+
+    const SOPA_CATS = {
+      '🐄 Granja y Campo': ['PERRO', 'GATOS', 'VACAS', 'GALLINAS', 'GALLO', 'CUYES', 'CONEJOS', 'POTRERO', 'CORRAL', 'PASTO', 'LECHE', 'MAIZ'],
+      '🏔️ Lugares del Sur': ['CUMBAL', 'VOLCAN', 'LAGUNA', 'CHILES', 'PASTO', 'IPIALES', 'LAJAS', 'NARIÑO', 'CARCHI', 'PARAMO', 'ANDES', 'CERRO'],
+      '🍲 Comida Típica': ['CUY', 'HORNADO', 'HERVIDO', 'EMPANADA', 'CHAMPUS', 'FRITADA', 'HABAS', 'QUESO', 'TINTO', 'CANELA', 'PAPA', 'CHOCLO'],
+      '🎶 Música y Alegría': ['DIOMEDES', 'AZUCENA', 'ACORDEON', 'CACIQUE', 'CUMBIA', 'GUITARRA', 'CANCION', 'FIESTA', 'BAILE', 'SERENATA', 'ALEGRIA', 'COPLA'],
+      '🌺 Flores y Árboles': ['GIRASOL', 'ORQUIDEA', 'ARRAYAN', 'ALISO', 'SAUCE', 'CLAVEL', 'ROSA', 'JAZMIN', 'CEDRO', 'ROBLE', 'VIOLETA', 'ROMERO']
+    };
+
+    function initWordSearchGame(container) {
+      let currentCat = '🐄 Granja y Campo';
+      const SIZE = 9;
+      let grid = [];
+      let words = [];
+      let found = new Set();
+      let dragging = false;
+      let startPos = null;
+      let selection = [];
+
+      function buildBoard() {
+        found.clear();
+        grid = Array.from({ length: SIZE }, () => Array(SIZE).fill(''));
+        const pool = [...SOPA_CATS[currentCat]].sort(() => Math.random() - 0.5);
+        words = [];
+        const dirs = [[0, 1], [1, 0], [1, 1]];
+
+        for (const w of pool) {
+          if (words.length >= 6 || w.length > SIZE) continue;
+          let ok = false;
+          for (let t = 0; t < 70 && !ok; t++) {
+            const [dr, dc] = dirs[Math.floor(Math.random() * dirs.length)];
+            const r0 = Math.floor(Math.random() * SIZE);
+            const c0 = Math.floor(Math.random() * SIZE);
+            const rE = r0 + dr * (w.length - 1);
+            const cE = c0 + dc * (w.length - 1);
+            if (rE < SIZE && cE < SIZE) {
+              let fits = true;
+              for (let i = 0; i < w.length; i++) {
+                const ch = grid[r0 + dr * i][c0 + dc * i];
+                if (ch !== '' && ch !== w[i]) { fits = false; break; }
+              }
+              if (fits) {
+                for (let i = 0; i < w.length; i++) grid[r0 + dr * i][c0 + dc * i] = w[i];
+                words.push(w);
+                ok = true;
+              }
+            }
+          }
+        }
+
+        const abc = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+        for (let r = 0; r < SIZE; r++) {
+          for (let c = 0; c < SIZE; c++) {
+            if (!grid[r][c]) grid[r][c] = abc[Math.floor(Math.random() * abc.length)];
+          }
+        }
+      }
+
+      function applySopaColors() {
+        const pal = SOPA_PALETTES[appState.sopaPalette % SOPA_PALETTES.length];
+        const board = container.querySelector('#sopa-grid');
+        if (!board) return;
+        board.style.backgroundColor = pal.boardBg;
+
+        board.querySelectorAll('.word-cell').forEach(cell => {
+          const isFound = cell.dataset.found === '1';
+          const isSel = cell.classList.contains('selecting');
+          if (isSel) {
+            cell.style.backgroundColor = pal.selBg;
+            cell.style.color = pal.selText;
+          } else if (isFound) {
+            cell.style.backgroundColor = pal.foundBg;
+            cell.style.color = pal.foundText;
+          } else {
+            cell.style.backgroundColor = pal.cellBg;
+            cell.style.color = pal.text;
+          }
+        });
+      }
+
+      function getLine(r1, c1, r2, c2) {
+        const dr = Math.sign(r2 - r1);
+        const dc = Math.sign(c2 - c1);
+        const dR = Math.abs(r2 - r1);
+        const dC = Math.abs(c2 - c1);
+        if (dR !== 0 && dC !== 0 && dR !== dC) return [];
+        const steps = Math.max(dR, dC);
+        const out = [];
+        for (let i = 0; i <= steps; i++) out.push({ r: r1 + dr * i, c: c1 + dc * i });
+        return out;
+      }
+
+      function updateSelUI() {
+        container.querySelectorAll('.word-cell').forEach(el => el.classList.remove('selecting'));
+        selection.forEach(({ r, c }) => {
+          const el = container.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+          if (el) el.classList.add('selecting');
+        });
+        applySopaColors();
+      }
+
+      function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        if (selection.length > 1) {
+          const w1 = selection.map(({ r, c }) => grid[r][c]).join('');
+          const w2 = w1.split('').reverse().join('');
+          const match = words.find(w => !found.has(w) && (w === w1 || w === w2));
+          if (match) {
+            found.add(match);
+            selection.forEach(({ r, c }) => {
+              const el = container.querySelector(`[data-r="${r}"][data-c="${c}"]`);
+              if (el) el.dataset.found = '1';
+            });
+            const badge = container.querySelector(`[data-w="${match}"]`);
+            if (badge) badge.classList.add('line-through', 'opacity-50');
+            playSFX('ok');
+            showToast(`¡Encontraste "${match}"!`, '🔎');
+
+            if (found.size === words.length) {
+              setTimeout(() => {
+                showToast('🎉 ¡Completaste toda la sopa! Nuevo tablero listo', '✨');
+                buildBoard();
+                render();
+              }, 1300);
+            }
+          }
+        }
+        selection = [];
+        updateSelUI();
+      }
+
+      function render() {
+        const pal = SOPA_PALETTES[appState.sopaPalette % SOPA_PALETTES.length];
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-black">🔎 Sopa de Letras</h2>
+                <p class="text-sm opacity-80">Desliza el dedo sobre las letras y elige tu paleta favorita</p>
+              </div>
+              <button id="sopa-new" class="btn-press px-4 py-2 rounded-xl font-extrabold text-sm bg-emerald-600 text-white shadow">
+                🔄 Tablero Nuevo
+              </button>
+            </div>
+
+            <!-- PALETA DE COLORES EXCLUSIVA DE LA SOPA DE LETRAS -->
+            <div class="p-3 rounded-2xl bg-black/5 flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs sm:text-sm font-extrabold">🎨 Colores de la Sopa (${pal.name}):</span>
+              <div class="flex flex-wrap gap-2">
+                ${SOPA_PALETTES.map((p, i) => `
+                  <button data-pal="${i}" class="sopa-pal-btn px-2.5 py-1 rounded-xl text-xs font-black border-2 transition ${i === appState.sopaPalette ? 'scale-105 border-amber-500 shadow' : 'border-black/15'}" style="background:${p.boardBg}; color:${p.text};">
+                    Aa · ${p.name}
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Categorías -->
+            <div class="flex flex-wrap gap-1.5">
+              ${Object.keys(SOPA_CATS).map(c => `
+                <button data-c="${c}" class="sopa-cat px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm ${c === currentCat ? 'bg-amber-500 text-white shadow' : 'bg-black/10'}">
+                  ${c}
+                </button>
+              `).join('')}
+            </div>
+
+            <!-- Palabras a encontrar -->
+            <div class="flex flex-wrap gap-2 p-3 rounded-2xl bg-black/5">
+              ${words.map(w => `
+                <span data-w="${w}" class="px-3 py-1 rounded-xl font-extrabold text-sm bg-white text-slate-900 shadow-sm ${found.has(w) ? 'line-through opacity-50' : ''}">
+                  ${w}
+                </span>
+              `).join('')}
+            </div>
+
+            <!-- Tablero -->
+            <div id="sopa-grid" class="grid grid-cols-9 gap-1 sm:gap-1.5 max-w-md mx-auto p-3 rounded-3xl shadow-lg border-2 border-black/15 transition-colors duration-300">
+              ${grid.map((row, r) => row.map((ch, c) => `
+                <div data-r="${r}" data-c="${c}" data-found="0" class="word-cell aspect-square flex items-center justify-center font-black text-lg sm:text-xl cursor-pointer rounded-lg select-none">
+                  ${ch}
+                </div>
+              `).join('')).join('')}
+            </div>
+          </div>
+        `;
+
+        applySopaColors();
+
+        container.querySelector('#sopa-new').onclick = () => {
+          buildBoard();
+          playSFX('tap');
+          render();
+        };
+
+        container.querySelectorAll('.sopa-pal-btn').forEach(b => {
+          b.onclick = () => {
+            appState.sopaPalette = Number(b.dataset.pal);
+            saveAppState();
+            playSFX('tap');
+            render();
+          };
+        });
+
+        container.querySelectorAll('.sopa-cat').forEach(b => {
+          b.onclick = () => {
+            currentCat = b.dataset.c;
+            buildBoard();
+            playSFX('tap');
+            render();
+          };
+        });
+
+        const gridEl = container.querySelector('#sopa-grid');
+        const start = (r, c) => { dragging = true; startPos = { r, c }; selection = [{ r, c }]; updateSelUI(); };
+        const move = (r, c) => {
+          if (!dragging || !startPos) return;
+          const line = getLine(startPos.r, startPos.c, r, c);
+          if (line.length) { selection = line; updateSelUI(); }
+        };
+
+        gridEl.addEventListener('mousedown', e => {
+          const cell = e.target.closest('.word-cell');
+          if (cell) start(Number(cell.dataset.r), Number(cell.dataset.c));
+        });
+        gridEl.addEventListener('mouseover', e => {
+          const cell = e.target.closest('.word-cell');
+          if (cell) move(Number(cell.dataset.r), Number(cell.dataset.c));
+        });
+        window.addEventListener('mouseup', endDrag);
+
+        gridEl.addEventListener('touchstart', e => {
+          const t = e.touches[0];
+          const el = document.elementFromPoint(t.clientX, t.clientY)?.closest('.word-cell');
+          if (el) { e.preventDefault(); start(Number(el.dataset.r), Number(el.dataset.c)); }
+        }, { passive: false });
+        gridEl.addEventListener('touchmove', e => {
+          if (!dragging) return;
+          e.preventDefault();
+          const t = e.touches[0];
+          const el = document.elementFromPoint(t.clientX, t.clientY)?.closest('.word-cell');
+          if (el) move(Number(el.dataset.r), Number(el.dataset.c));
+        }, { passive: false });
+        gridEl.addEventListener('touchend', endDrag);
+      }
+
+      buildBoard();
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 4: MEMORIA NUESTRA TIERRA (210+ VARIEDADES DE ÁRBOLES, FLORES Y ANIMALES)
+       ========================================================================== */
+    const NATURE_SPECIES = [
+      // 70 Árboles y Plantas
+      ...['Aliso', 'Arrayán', 'Sauce Llorón', 'Cedro Andino', 'Roble', 'Eucalipto', 'Pino', 'Ciprés', 'Guayacán', 'Ceiba', 'Laurel', 'Nogal', 'Chachafruto', 'Yarumo', 'Urapán', 'Acacia', 'Magnolio', 'Castaño', 'Álamo', 'Abedul', 'Olivo', 'Naranjo', 'Limonero', 'Mandarino', 'Aguacate', 'Guayabo', 'Papayo', 'Manzano', 'Duraznero', 'Ciruelo', 'Cerezo', 'Peral', 'Higuera', 'Cafeto', 'Cacao', 'Plátano', 'Bambú', 'Guadua', 'Palma de Cera', 'Helecho Arbóreo', 'Frailejón', 'Quishuar', 'Capulí', 'Mortiño', 'Saúco', 'Tilo', 'Jacarandá', 'Flamboyán', 'Samán', 'Matarratón', 'Palo Santo', 'Canelo', 'Romero', 'Ruda', 'Hierbabuena', 'Toronjil', 'Manzanilla', 'Lavanda', 'Menta', 'Albahaca', 'Orégano', 'Tomillo', 'Salvia', 'Sábila', 'Cactus', 'Agave', 'Trébol', 'Musgo', 'Mora Silvestre', 'Uchuva'].map((n, i) => ({
+        icon: ['🌳', '🌲', '🌴', '🌿', '🌱', '🍀', '🌾'][i % 7],
+        name: n,
+        cat: 'arboles'
+      })),
+      // 70 Flores
+      ...['Girasol', 'Orquídea', 'Rosa Roja', 'Clavel', 'Margarita', 'Hortensia', 'Geranio', 'Azucena', 'Dalia', 'Begonia', 'Tulipán', 'Lirio', 'Jazmín', 'Violeta', 'Amapola', 'Crisantemo', 'Petunia', 'Caléndula', 'Buganvilla', 'Camelia', 'Gardenia', 'Peonía', 'Narciso', 'Jacinto', 'Hibisco', 'Flor de Loto', 'Flor de Pascua', 'Pensamiento', 'Boca de Dragón', 'Zinnia', 'Cosmos', 'Verbena', 'Fucsia', 'Cartucho', 'Ave del Paraíso', 'Anturio', 'Heliconia', 'Bromelia', 'Campanilla', 'Madreselva', 'Flor de Café', 'Flor de Saúco', 'Flor de Mora', 'Flor de Papa', 'Flor de Calabaza', 'Diente de León', 'Trébol Florido', 'Malva', 'Salvia Azul', 'Glicina', 'Lila', 'Mimosa', 'Anémona', 'Ranúnculo', 'Gladiolo', 'Fresia', 'Amarilis', 'Nardo', 'Alhelí', 'Celosía', 'Cresta de Gallo', 'Portulaca', 'Agerato', 'Lobelia', 'Primavera', 'No Me Olvides', 'Edelweiss', 'Flor de Páramo', 'Chilca Florida', 'Retama'].map((n, i) => ({
+        icon: ['🌻', '🌺', '🌹', '🌸', '🌼', '🌷', '💐'][i % 7],
+        name: n,
+        cat: 'flores'
+      })),
+      // 75 Animales
+      ...['Perro Fiel', 'Gato Blanco', 'Gato Gris', 'Vaca Lechera', 'Gallina', 'Gallo Cantor', 'Cuy Tierno', 'Conejo', 'Caballo', 'Oveja', 'Cerdo', 'Pato', 'Burro', 'Abeja', 'Colibrí', 'Cóndor', 'Zorro Andino', 'Venado', 'Trucha', 'Golondrina', 'Búho', 'Mariposa', 'Mariquita', 'Rana Verde', 'Mirla', 'Torcaza', 'Carpintero', 'Águila', 'Ternero', 'Pollito', 'Cordero', 'Potro', 'Cabra', 'Pavo', 'Ganso', 'Paloma', 'Canario', 'Grillo', 'Hormiga', 'Libélula', 'Caracol', 'Tortuga', 'Ardilla', 'Nutria', 'Oso de Anteojos', 'Puma Andino', 'Llama', 'Alpaca', 'Vicuña', 'Tapir', 'Armadillo', 'Erizo', 'Castor', 'Cisne', 'Garza', 'Pelícano', 'Tucán', 'Guacamaya', 'Loro', 'Perico', 'Cardenal', 'Ruiseñor', 'Jilguero', 'Halcón', 'Lechuza', 'Delfín', 'Ballena', 'Foca', 'Pingüino', 'Cangrejo', 'Estrella de Mar', 'Caballito de Mar', 'Camaleón', 'Iguana', 'Salamandra'].map((n, i) => ({
+        icon: ['🐕', '🐈', '🐄', '🐓', '🐹', '🐇', '🐎', '🐑', '🐝', '🦋', '🦅', '🦉', '🐿️', '🐢', '🦜'][i % 15],
+        name: n,
+        cat: 'animales'
+      }))
+    ];
+
+    function initMemoryGame(container) {
+      let level = 'facil'; // facil (6 parejas), medio (8 parejas), reto (10 parejas)
+      let catFilter = 'todos';
+      let cards = [];
+      let flipped = [];
+      let matched = 0;
+      let locked = false;
+
+      function buildDeck() {
+        const count = level === 'facil' ? 6 : level === 'medio' ? 8 : 10;
+        const pool = catFilter === 'todos' ? [...NATURE_SPECIES] : NATURE_SPECIES.filter(s => s.cat === catFilter);
+        const chosen = pool.sort(() => Math.random() - 0.5).slice(0, count);
+        cards = [...chosen, ...chosen]
+          .sort(() => Math.random() - 0.5)
+          .map((item, idx) => ({ ...item, uid: idx, done: false }));
+        flipped = [];
+        matched = 0;
+        locked = false;
+      }
+
+      function render() {
+        const cols = level === 'reto' ? 'grid-cols-4 sm:grid-cols-5' : 'grid-cols-3 sm:grid-cols-4';
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-black">🌺 Memoria Nuestra Tierra</h2>
+                <p class="text-sm opacity-80">Catálogo de ${NATURE_SPECIES.length} variedades de árboles, flores y animales</p>
+              </div>
+              <div class="flex flex-wrap gap-1.5">
+                <button data-l="facil" class="ml-btn px-3 py-1.5 rounded-xl font-bold text-xs ${level === 'facil' ? 'bg-purple-600 text-white shadow' : 'bg-black/10'}">12 Cartas</button>
+                <button data-l="medio" class="ml-btn px-3 py-1.5 rounded-xl font-bold text-xs ${level === 'medio' ? 'bg-purple-600 text-white shadow' : 'bg-black/10'}">16 Cartas</button>
+                <button data-l="reto" class="ml-btn px-3 py-1.5 rounded-xl font-bold text-xs ${level === 'reto' ? 'bg-purple-600 text-white shadow' : 'bg-black/10'}">20 Cartas</button>
+              </div>
+            </div>
+
+            <!-- Filtro de especies -->
+            <div class="flex flex-wrap gap-2">
+              <button data-c="todos" class="mc-btn px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm ${catFilter === 'todos' ? 'bg-amber-500 text-white shadow' : 'bg-black/10'}">🌎 Mezclado (215)</button>
+              <button data-c="arboles" class="mc-btn px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm ${catFilter === 'arboles' ? 'bg-emerald-600 text-white shadow' : 'bg-black/10'}">🌳 Árboles y Plantas</button>
+              <button data-c="flores" class="mc-btn px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm ${catFilter === 'flores' ? 'bg-pink-600 text-white shadow' : 'bg-black/10'}">🌻 Flores</button>
+              <button data-c="animales" class="mc-btn px-3 py-1.5 rounded-xl font-bold text-xs sm:text-sm ${catFilter === 'animales' ? 'bg-sky-600 text-white shadow' : 'bg-black/10'}">🐾 Animales</button>
+            </div>
+
+            <!-- Cuadrícula de cartas -->
+            <div class="grid ${cols} gap-2.5 max-w-xl mx-auto">
+              ${cards.map((c, i) => `
+                <div data-i="${i}" class="mem-card aspect-square cursor-pointer">
+                  <div class="mem-inner relative w-full h-full">
+                    <div class="mem-front absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center text-3xl shadow border-2 border-white/60">
+                      🌿
+                    </div>
+                    <div class="mem-back absolute inset-0 rounded-2xl bg-white text-slate-900 flex flex-col items-center justify-center p-1.5 text-center shadow border-2 border-purple-400">
+                      <span class="text-2xl sm:text-4xl leading-none">${c.icon}</span>
+                      <span class="text-[11px] sm:text-xs font-extrabold mt-1.5 leading-tight line-clamp-2">${c.name}</span>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll('.ml-btn').forEach(b => {
+          b.onclick = () => { level = b.dataset.l; buildDeck(); playSFX('tap'); render(); };
+        });
+        container.querySelectorAll('.mc-btn').forEach(b => {
+          b.onclick = () => { catFilter = b.dataset.c; buildDeck(); playSFX('tap'); render(); };
+        });
+
+        container.querySelectorAll('.mem-card').forEach(el => {
+          el.onclick = () => {
+            if (locked) return;
+            const i = Number(el.dataset.i);
+            if (cards[i].done || flipped.includes(i)) return;
+
+            el.classList.add('flipped');
+            flipped.push(i);
+            playSFX('tap');
+
+            if (flipped.length === 2) {
+              const [a, b] = flipped;
+              if (cards[a].name === cards[b].name) {
+                cards[a].done = true;
+                cards[b].done = true;
+                matched += 2;
+                flipped = [];
+                playSFX('ok');
+                if (matched === cards.length) {
+                  showToast('🎉 ¡Encontraste todas las parejas! Nuevas especies listas', '🌺');
+                  setTimeout(() => { buildDeck(); render(); }, 1500);
+                }
+              } else {
+                locked = true;
+                setTimeout(() => {
+                  container.querySelector(`[data-i="${a}"]`)?.classList.remove('flipped');
+                  container.querySelector(`[data-i="${b}"]`)?.classList.remove('flipped');
+                  flipped = [];
+                  locked = false;
+                }, 850);
+              }
+            }
+          };
+        });
+      }
+
+      buildDeck();
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 5: CONECTA & EVOLUCIONA (SOLO DESLIZANDO EL DEDO, SIN LÍMITE)
+       ========================================================================== */
+    const INFINITE_TIERS = [
+      { icon: '🌱', name: 'Semilla', bg: '#fef3c7', fg: '#78350f' },
+      { icon: '🌿', name: 'Brote', bg: '#dcfce7', fg: '#14532d' },
+      { icon: '🌼', name: 'Flor', bg: '#fce7f3', fg: '#831843' },
+      { icon: '🌳', name: 'Árbol', bg: '#bbf7d0', fg: '#064e3b' },
+      { icon: '☕', name: 'Cafecito', bg: '#fde68a', fg: '#78350f' },
+      { icon: '🥟', name: 'Empanada', bg: '#fed7aa', fg: '#7c2d12' },
+      { icon: '🍽️', name: 'Banquete', bg: '#fecdd3', fg: '#881337' },
+      { icon: '🎶', name: 'Serenata', bg: '#bae6fd', fg: '#0c4a6e' },
+      { icon: '🏔️', name: 'Cumbre', bg: '#c7d2fe', fg: '#1e1b4b' },
+      { icon: '🌞', name: 'Sol Oro', bg: '#fde047', fg: '#713f12' },
+      { icon: '👑', name: 'Corona', bg: '#f59e0b', fg: '#ffffff' },
+      { icon: '💎', name: 'Diamante', bg: '#06b6d4', fg: '#ffffff' },
+      { icon: '🌟', name: 'Estrella', bg: '#8b5cf6', fg: '#ffffff' },
+      { icon: '🔥', name: 'Fénix', bg: '#ef4444', fg: '#ffffff' },
+      { icon: '🌌', name: 'Infinito', bg: '#1e293b', fg: '#facc15' }
+    ];
+
+    function getTierVisual(level) {
+      // Nivel 1, 2, 3... sin ningún límite superior
+      if (level <= INFINITE_TIERS.length) {
+        return { ...INFINITE_TIERS[level - 1], badge: `Nv.${level}` };
+      }
+      const extraIcons = ['🚀', '🌈', '🏆', '💫', '🪐', '⚡', '🌺', '🦚'];
+      const hue = (level * 47) % 360;
+      return {
+        icon: extraIcons[level % extraIcons.length],
+        name: `Supremo ${level}`,
+        bg: `hsl(${hue}, 78%, 45%)`,
+        fg: '#ffffff',
+        badge: `Nv.${level}`
+      };
+    }
+
+    function initMergeGame(container) {
+      // Tablero 4x4 donde las fichas guardan su nivel entero (1, 2, 3...) sin límite
+      let grid = Array.from({ length: 4 }, () => Array(4).fill(0));
+      let highestLevel = 1;
+
+      function spawnTile() {
+        const empty = [];
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 4; c++) {
+            if (grid[r][c] === 0) empty.push({ r, c });
+          }
+        }
+        if (empty.length) {
+          const { r, c } = empty[Math.floor(Math.random() * empty.length)];
+          grid[r][c] = Math.random() < 0.78 ? 1 : 2;
+        }
+      }
+
+      function reset() {
+        grid = Array.from({ length: 4 }, () => Array(4).fill(0));
+        highestLevel = 1;
+        spawnTile();
+        spawnTile();
+      }
+
+      function compressAndMerge(line) {
+        let arr = line.filter(v => v !== 0);
+        let mergedAny = false;
+        for (let i = 0; i < arr.length - 1; i++) {
+          if (arr[i] === arr[i + 1]) {
+            arr[i] = arr[i] + 1; // Sube +1 nivel indefinidamente
+            if (arr[i] > highestLevel) highestLevel = arr[i];
+            arr[i + 1] = 0;
+            mergedAny = true;
+          }
+        }
+        arr = arr.filter(v => v !== 0);
+        while (arr.length < 4) arr.push(0);
+        return { arr, mergedAny };
+      }
+
+      function swipe(dir) {
+        const before = JSON.stringify(grid);
+        let merged = false;
+
+        if (dir === 'left' || dir === 'right') {
+          for (let r = 0; r < 4; r++) {
+            let row = [...grid[r]];
+            if (dir === 'right') row.reverse();
+            const res = compressAndMerge(row);
+            if (dir === 'right') res.arr.reverse();
+            grid[r] = res.arr;
+            if (res.mergedAny) merged = true;
+          }
+        } else {
+          for (let c = 0; c < 4; c++) {
+            let col = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
+            if (dir === 'down') col.reverse();
+            const res = compressAndMerge(col);
+            if (dir === 'down') res.arr.reverse();
+            for (let r = 0; r < 4; r++) grid[r][c] = res.arr[r];
+            if (res.mergedAny) merged = true;
+          }
+        }
+
+        if (JSON.stringify(grid) !== before) {
+          spawnTile();
+          playSFX(merged ? 'ok' : 'tap');
+          render();
+        }
+      }
+
+      function hasMovesLeft() {
+        for (let r = 0; r < 4; r++) {
+          for (let c = 0; c < 4; c++) {
+            if (grid[r][c] === 0) return true;
+            if (c < 3 && grid[r][c] === grid[r][c + 1]) return true;
+            if (r < 3 && grid[r][c] === grid[r + 1][c]) return true;
+          }
+        }
+        return false;
+      }
+
+      function render() {
+        const maxVis = getTierVisual(highestLevel);
+        const stuck = !hasMovesLeft();
+
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h2 class="text-2xl font-black">🌱 Conecta & Evoluciona</h2>
+                <p class="text-sm opacity-80">Desliza <strong>solo con el dedo</strong> en cualquier dirección · ¡Evolución infinita!</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3.5 py-2 rounded-2xl bg-black/10 font-extrabold text-xs sm:text-sm">
+                  Evolución alcanzada: ${maxVis.icon} ${maxVis.name}
+                </span>
+                <button id="m-reset" class="btn-press px-3.5 py-2 rounded-2xl bg-orange-600 text-white font-bold text-xs sm:text-sm shadow">
+                  🔄 Nuevo
+                </button>
+              </div>
+            </div>
+
+            <!-- Tablero táctil puro (sin botones de flechas) -->
+            <div id="merge-board-area" class="grid grid-cols-4 gap-2.5 max-w-sm mx-auto p-3.5 rounded-3xl bg-slate-800 shadow-xl cursor-grab active:cursor-grabbing select-none">
+              ${grid.flat().map(lvl => {
+                if (lvl === 0) return `<div class="aspect-square rounded-2xl bg-slate-700/60"></div>`;
+                const v = getTierVisual(lvl);
+                return `
+                  <div class="aspect-square rounded-2xl flex flex-col items-center justify-center p-1 shadow-md relative transition-all" style="background:${v.bg}; color:${v.fg};">
+                    <span class="text-[10px] font-black opacity-75 absolute top-1 right-1.5">${v.badge}</span>
+                    <span class="text-2xl sm:text-3xl leading-none">${v.icon}</span>
+                    <span class="text-[10px] sm:text-xs font-black mt-1 truncate max-w-full">${v.name}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <p class="text-center text-xs sm:text-sm font-bold opacity-75">
+              👆 Desliza el dedo arriba, abajo, izquierda o derecha sobre el tablero para unir fichas iguales
+            </p>
+
+            ${stuck ? `
+              <div class="p-4 rounded-2xl bg-amber-500/20 text-center font-extrabold">
+                ¡Tablero lleno! Llegaste hasta <strong>${maxVis.icon} ${maxVis.name}</strong>. Toca "Nuevo" para seguir superándote.
+              </div>
+            ` : ''}
+          </div>
+        `;
+
+        container.querySelector('#m-reset').onclick = () => {
+          reset();
+          playSFX('tap');
+          render();
+        };
+
+        const area = container.querySelector('#merge-board-area');
+        let x0 = 0, y0 = 0, active = false;
+
+        const onStart = (x, y) => { x0 = x; y0 = y; active = true; };
+        const onEnd = (x, y) => {
+          if (!active) return;
+          active = false;
+          const dx = x - x0;
+          const dy = y - y0;
+          if (Math.abs(dx) < 22 && Math.abs(dy) < 22) return;
+          if (Math.abs(dx) > Math.abs(dy)) swipe(dx > 0 ? 'right' : 'left');
+          else swipe(dy > 0 ? 'down' : 'up');
+        };
+
+        area.addEventListener('touchstart', e => {
+          e.preventDefault();
+          onStart(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: false });
+        area.addEventListener('touchend', e => {
+          e.preventDefault();
+          onEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+        }, { passive: false });
+
+        area.addEventListener('mousedown', e => onStart(e.clientX, e.clientY));
+        window.addEventListener('mouseup', e => { if (active) onEnd(e.clientX, e.clientY); });
+      }
+
+      reset();
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 6: ADIVINA LA PALABRA (200 PALABRAS VARIADAS CON PISTAS SUAVES)
+       ========================================================================== */
+    const WORDS_200 = [
+      // 200 palabras organizadas con sus pistas
+      ['VOLCAN CUMBAL', '🏔️ Gigante nevado que cuida nuestra tierra'],
+      ['LAGUNA DE LA BOLSA', '💧 Espejo de agua cristalina en el páramo'],
+      ['DIOMEDES DIAZ', '🤠 El querido Cacique de la Junta'],
+      ['AZUCENA AYMARA', '👑 La Diva de la canción popular del sur'],
+      ['CUY ASADO', '🍽️ Plato tradicional de fiesta en Nariño'],
+      ['HERVIDO DE MORA', '☕ Bebida calientica para el frío'],
+      ['SANTUARIO LAS LAJAS', '⛪ Maravilla arquitectónica cerca de Ipiales'],
+      ['CARNAVAL DE BLANCOS', '🎭 Fiesta alegre de enero en Nariño'],
+      ['ACORDEON', '🪗 Instrumento rey del vallenato'],
+      ['GUITARRA', '🎸 Compañera fiel de las serenatas'],
+      ['FRAILEJON', '🌿 Planta del páramo que guarda el agua'],
+      ['CONDOR ANDINO', '🦅 Ave majestuosa de nuestras montañas'],
+      ['RUANA DE LANA', '🧥 Abrigo calentico para las mañanas frías'],
+      ['PAN DE YUCA', '🥖 Delicia horneada para acompañar el café'],
+      ['EMPANADAS DE AÑEJO', '🥟 Bocado crocante servido con ají casero'],
+      ['CHAMPUS', '🌽 Bebida tradicional de maíz, lulo y piña'],
+      ['HORNADO', '🍖 Plato típico muy querido en la frontera'],
+      ['FRITADA', '🍲 Comida sabrosa de nuestra gastronomía'],
+      ['QUESO CAMPESINO', '🧀 Producto fresco de la leche del campo'],
+      ['CAFE CALIENTE', '☕ Aroma delicioso al despertar'],
+      ['GALLO CANTOR', '🐓 Anuncia el amanecer en la granja'],
+      ['PERRO GUARDIAN', '🐕 El amigo más fiel de la casa'],
+      ['GATOS JUGUETONES', '🐈 Compañeros suaves que ronronean'],
+      ['VACAS LECHERAS', '🐄 Pastan tranquilas en el potrero verde'],
+      ['GALLINAS DEL PATIO', '🐔 Picotean maicito todo el día'],
+      ['CUYES TIERNOS', '🐹 Animalitos muy queridos en el campo'],
+      ['CONEJOS BLANCOS', '🐇 Saltan alegres con sus orejas largas'],
+      ['GIRASOL', '🌻 Flor amarilla que busca la luz del sol'],
+      ['ORQUIDEA', '🌺 Flor emblemática de belleza natural'],
+      ['ARRAYAN', '🌳 Árbol nativo de corteza lisa y fresca'],
+      ['ALISO', '🌲 Árbol que crece junto a los ríos andinos'],
+      ['SAUCE LLORON', '🌿 Árbol de ramas largas junto al agua'],
+      ['EUCALIPTO', '🍃 Árbol de aroma fresco y medicinal'],
+      ['MANZANILLA', '🌼 Hierba aromática para agüita caliente'],
+      ['HIERBABUENA', '🌱 Planta perfumada de la huerta'],
+      ['COLIBRI', '🐦 Pajarito veloz que visita las flores'],
+      ['MARIPOSA', '🦋 Insecto de alas llenas de colores'],
+      ['ABEJA TRABAJADORA', '🐝 Fabrica miel dulce en su panal'],
+      ['ARCOIRIS', '🌈 Puente de siete colores tras la lluvia'],
+      ['AMANECER', '🌅 Momento en que sale el sol por el cerro'],
+      ['ATARDECER', '🌇 Cuando el cielo se pinta de naranja y oro'],
+      ['ESTRELLAS', '✨ Brillan en el cielo despejado de la noche'],
+      ['LUNA LLENA', '🌕 Ilumina los caminos del campo de noche'],
+      ['SERENATA', '🎶 Música dedicada con cariño bajo la ventana'],
+      ['PARRANDA', '🎉 Reunión alegre con canciones y amigos'],
+      ['ALEGRIA', '😊 Sentimiento bonito que ilumina el hogar'],
+      ['FAMILIA UNIDA', '❤️ El tesoro más grande de la vida'],
+      ['ABRAZO SINCERO', '🤗 Muestra de afecto que reconforta el alma'],
+      ['SONRISA', '😄 El mejor adorno de cualquier rostro'],
+      ['CARIÑO', '💛 Afecto verdadero que se cultiva cada día'],
+      // 150 palabras adicionales de naturaleza, hogar, campo, música y cultura
+      ...['POTRERO', 'COSECHA', 'SEMILLA', 'HUERTA', 'SENDERO', 'PRADERA', 'MONTANA', 'NEBLINA', 'ROCIO', 'BRISA',
+          'MANANTIAL', 'RIACHUELO', 'CASCADA', 'CORDILLERA', 'HORIZONTE', 'PAISAJE', 'CAMPESINO', 'LABRANZA', 'ARADO', 'GRANERO',
+          'MOLINO', 'ESTABLO', 'CORRAL', 'GALLINERO', 'CONEJERA', 'PASTOREO', 'ORDEÑO', 'CUajada', 'MANTEQUILLA', 'PANELA',
+          'CANELA', 'CLAVO DE OLOR', 'CHOCOLATE', 'AGUAPANELA', 'HABAS TIERNAS', 'CHOCLO', 'MOTE', 'PAPA CRIOLLA', 'ULLUCO', 'OCA',
+          'QUINUA', 'CEBADA', 'TRIGO', 'MAIZAL', 'ARVEJA', 'ZANAHORIA', 'LECHUGA', 'CILANTRO', 'PEREJIL', 'OREGANO',
+          'TOMATE DE ARBOL', 'UCHUVA', 'CURUBA', 'LULO', 'MORA', 'FRESA', 'GUAYABA', 'AGUACATE', 'DURAZNO', 'MANZANA',
+          'CLAVEL', 'ROSA', 'MARGARITA', 'HORTENSIA', 'GERANIO', 'AZUCENA', 'DALIA', 'VIOLETA', 'JAZMIN', 'CALENDULA',
+          'TORONJIL', 'ROMERO', 'RUDA', 'SABILA', 'MENTA', 'CEDRO', 'ROBLE', 'PINO', 'CIPRES', 'GUADUA',
+          'PALMA DE CERA', 'HELECHO', 'TREBOL', 'MUSGO', 'CHILCA', 'RETAMA', 'CAPULI', 'MORTIÑO', 'SAUCO', 'LAUREL',
+          'CUMBIA', 'VALLENATO', 'PASILLO', 'SANJUANITO', 'BAMBUCO', 'BOLERO', 'RANCHERA', 'COPLA', 'VERSO', 'MELODIA',
+          'CANCION', 'ESTRIBILLO', 'TAMBOR', 'MARACAS', 'QUENA', 'ZAMPOÑA', 'CHARANGO', 'TIPLE', 'VIOLIN', 'PIANO',
+          'SOMBRERO', 'PONCHO', 'BUFANDA', 'BOTAS', 'CANASTA', 'MOCHILA', 'FOGON', 'LEÑA', 'OLLAS DE BARRO', 'CHIMENEA',
+          'VENTANA', 'BALCON', 'JARDIN', 'PATIO', 'PORTON', 'CAMINO', 'PUENTE', 'PLAZA', 'IGLESIA', 'CAMPANARIO',
+          'DOMINGO', 'FIESTA', 'BAILE', 'APLAUSO', 'RISAS', 'CHARLA', 'RECUERDO', 'HISTORIA', 'CONSEJO', 'SABIDURIA',
+          'GRATITUD', 'ESPERANZA', 'TRANQUILIDAD', 'ARMONIA', 'SALUD', 'BENDICION', 'AMISTAD', 'RESPETO', 'TERNURA', 'FELICIDAD'
+      ].map(w => [w, `✨ Palabra de ${w.replace(/ /g, '').length} letras sobre nuestro entorno, campo y cultura`])
+    ];
+
+    function initHangmanGame(container) {
+      let deck = [...WORDS_200].sort(() => Math.random() - 0.5);
+      let idx = 0;
+      let guessed = new Set([' ']);
+      let mistakes = 0;
+      const MAX_MISTAKES = 7;
+
+      function nextWord() {
+        if (idx >= deck.length) {
+          deck = [...WORDS_200].sort(() => Math.random() - 0.5);
+          idx = 0;
+        }
+        guessed = new Set([' ']);
+        mistakes = 0;
+      }
+
+      function render() {
+        const [word, hint] = deck[idx];
+        const chars = word.split('');
+        const won = chars.every(c => guessed.has(c));
+        const lost = mistakes >= MAX_MISTAKES;
+        const abc = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+
+        container.innerHTML = `
+          <div class="space-y-5 text-center">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-left">
+              <div>
+                <h2 class="text-2xl font-black">💡 Adivina la Palabra</h2>
+                <p class="text-sm opacity-80">Banco de ${WORDS_200.length} palabras · Toca las letras para descubrirla</p>
+              </div>
+              <span class="px-3.5 py-1.5 rounded-2xl bg-rose-500/15 font-extrabold text-sm">
+                Intentos: ${'❤️'.repeat(Math.max(0, MAX_MISTAKES - mistakes))}${'🤍'.repeat(mistakes)}
+              </span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-black/5 border border-black/10 font-extrabold text-base sm:text-lg">
+              ${hint}
+            </div>
+
+            <!-- Casillas -->
+            <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 py-2">
+              ${chars.map(c => {
+                if (c === ' ') return `<div class="w-4 sm:w-7"></div>`;
+                const visible = guessed.has(c) || lost;
+                return `
+                  <div class="w-8 h-11 sm:w-11 sm:h-13 rounded-xl border-b-4 ${visible ? (lost && !guessed.has(c) ? 'bg-rose-100 border-rose-500 text-rose-700' : 'bg-white border-emerald-500 text-slate-900') : 'bg-black/10 border-slate-400'} flex items-center justify-center font-black text-lg sm:text-2xl shadow-sm">
+                    ${visible ? c : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            ${!won && !lost ? `
+              <div class="flex flex-wrap justify-center gap-1.5 max-w-xl mx-auto">
+                ${abc.map(l => {
+                  const used = guessed.has(l);
+                  const ok = word.includes(l);
+                  let cls = 'bg-white text-slate-900 hover:bg-amber-100 border-black/15';
+                  if (used) cls = ok ? 'bg-emerald-500 text-white border-emerald-600' : 'bg-slate-400 text-white opacity-40';
+                  return `<button data-l="${l}" ${used ? 'disabled' : ''} class="w-key btn-press w-9 h-11 sm:w-11 sm:h-12 rounded-xl border-2 font-black text-base shadow-sm ${cls}">${l}</button>`;
+                }).join('')}
+              </div>
+            ` : `
+              <div class="p-4 rounded-2xl ${won ? 'bg-emerald-500/20 text-emerald-900 dark:text-emerald-200' : 'bg-amber-500/20'} font-black text-lg">
+                ${won ? '🎉 ¡Muy bien! Palabra descubierta.' : `La palabra era: ${word}`}
+              </div>
+              <button id="w-next" class="btn-press px-6 py-3 rounded-2xl bg-amber-500 text-white font-black text-base shadow-lg">
+                ➡️ Siguiente Palabra
+              </button>
+            `}
+          </div>
+        `;
+
+        container.querySelectorAll('.w-key').forEach(b => {
+          b.onclick = () => {
+            const l = b.dataset.l;
+            guessed.add(l);
+            if (word.includes(l)) {
+              playSFX('tap');
+              if (word.split('').every(c => guessed.has(c))) playSFX('ok');
+            } else {
+              mistakes++;
+              playSFX('soft');
+            }
+            render();
+          };
+        });
+
+        const nb = container.querySelector('#w-next');
+        if (nb) nb.onclick = () => { idx++; nextWord(); playSFX('tap'); render(); };
+      }
+
+      nextWord();
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 7: INTRUSO EN EL GRUPO (220+ RETOS COMBINATORIOS VARIADOS)
+       ========================================================================== */
+    const INTRUDER_GROUPS = [
+      { title: 'Animales de Granja', items: ['🐄 Vaca', '🐓 Gallo', '🐖 Cerdo', '🐑 Oveja', '🐹 Cuy', '🐇 Conejo', '🐎 Caballo', '🦆 Pato'] },
+      { title: 'Flores del Jardín', items: ['🌻 Girasol', '🌹 Rosa', '🌺 Orquídea', '🌷 Tulipán', '🌼 Margarita', '💐 Clavel', '🌸 Azucena'] },
+      { title: 'Árboles y Plantas', items: ['🌳 Aliso', '🌲 Pino', '🌴 Palma', '🌿 Arrayán', '🍃 Sauce', '🌱 Frailejón', '🍀 Trébol'] },
+      { title: 'Frutas Dulces', items: ['🍎 Manzana', '🍌 Banano', '🍓 Fresa', '🍊 Naranja', '🍍 Piña', '🍇 Uvas', '🍑 Durazno', '🥭 Mango'] },
+      { title: 'Instrumentos Musicales', items: ['🪗 Acordeón', '🎸 Guitarra', '🥁 Tambor', '🎹 Piano', '🎺 Trompeta', '🎻 Violín', '🪈 Quena'] },
+      { title: 'Comidas y Bebidas del Campo', items: ['☕ Cafecito', '🥟 Empanada', '🧀 Queso', '🌽 Choclo', '🥔 Papa', '🥖 Pan', '🍲 Sopa'] },
+      { title: 'Aves que Vuelan', items: ['🦅 Cóndor', '🦉 Búho', '🕊️ Paloma', '🦜 Loro', '🐦 Colibrí', '🦢 Cisne'] },
+      { title: 'Herramientas del Hogar y Campo', items: ['🔨 Martillo', '🪚 Serrucho', '🪓 Hacha', '⛏️ Pico', '🪣 Balde', '🧹 Escoba'] },
+      { title: 'Prendas de Vestir', items: ['🧥 Ruana', '👒 Sombrero', '🧣 Bufanda', '👢 Botas', '👕 Camisa', '👖 Pantalón'] },
+      { title: 'Elementos del Cielo y Clima', items: ['🌞 Sol', '🌕 Luna', '⭐ Estrella', '☁️ Nube', '🌈 Arcoíris', '🌧️ Lluvia'] },
+      { title: 'Medios de Transporte', items: ['🚌 Autobús', '🚂 Tren', '🚲 Bicicleta', '🚗 Carro', '✈️ Avión', '🚢 Barco'] },
+      { title: 'Verduras de la Huerta', items: ['🥕 Zanahoria', '🥬 Lechuga', '🧅 Cebolla', '🍅 Tomate', '🥦 Brócoli', '🥒 Pepino'] }
+    ];
+
+    function build220IntruderChallenges() {
+      const list = [];
+      for (let i = 0; i < INTRUDER_GROUPS.length; i++) {
+        for (let j = 0; j < INTRUDER_GROUPS.length; j++) {
+          if (i === j) continue;
+          const mainG = INTRUDER_GROUPS[i];
+          const oddG = INTRUDER_GROUPS[j];
+          // Generar 2 variantes distintas por cada par de grupos => 12 * 11 * 2 = 264 retos únicos
+          for (let v = 0; v < 2; v++) {
+            const shifted = [...mainG.items.slice(v), ...mainG.items.slice(0, v)];
+            const regulars = shifted.slice(0, 4);
+            const intruder = oddG.items[(i + j + v) % oddG.items.length];
+            list.push({
+              groupName: mainG.title,
+              intruderGroup: oddG.title,
+              regulars,
+              intruder
+            });
+          }
+        }
+      }
+      return list.sort(() => Math.random() - 0.5);
+    }
+
+    const INTRUDER_POOL = build220IntruderChallenges();
+
+    function initIntruderGame(container) {
+      let idx = 0;
+      let solved = 0;
+
+      function render() {
+        if (idx >= INTRUDER_POOL.length) idx = 0;
+        const ch = INTRUDER_POOL[idx];
+        const cards = [...ch.regulars, ch.intruder].sort(() => Math.random() - 0.5);
+
+        container.innerHTML = `
+          <div class="space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <h2 class="text-2xl font-black">🧐 Intruso en el Grupo</h2>
+                <p class="text-sm opacity-80">Banco de ${INTRUDER_POOL.length} retos · Toca el único elemento que <strong>no</strong> pertenece al grupo</p>
+              </div>
+              <span class="px-3.5 py-1.5 rounded-full bg-teal-500/20 text-teal-800 dark:text-teal-300 font-extrabold text-xs sm:text-sm">
+                Resueltos: ${solved}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              ${cards.map(c => `
+                <button class="int-card btn-press p-5 rounded-3xl border-2 border-black/15 bg-white/90 hover:bg-teal-50 text-slate-900 font-black text-xl sm:text-2xl shadow-sm flex items-center justify-center text-center">
+                  ${c}
+                </button>
+              `).join('')}
+            </div>
+
+            <div id="int-feedback" class="hidden p-4 rounded-2xl font-bold text-center text-base"></div>
+          </div>
+        `;
+
+        container.querySelectorAll('.int-card').forEach(btn => {
+          btn.onclick = () => {
+            const val = btn.textContent.trim();
+            const all = container.querySelectorAll('.int-card');
+            all.forEach(x => x.disabled = true);
+            const fb = container.querySelector('#int-feedback');
+            fb.classList.remove('hidden');
+
+            if (val === ch.intruder) {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+              solved++;
+              playSFX('ok');
+              fb.className = 'p-4 rounded-2xl font-extrabold text-center text-base bg-emerald-500/20 text-emerald-900 dark:text-emerald-200';
+              fb.textContent = `¡Exacto! "${ch.intruder}" es de "${ch.intruderGroup}", mientras los demás son "${ch.groupName}".`;
+            } else {
+              btn.classList.remove('bg-white/90');
+              btn.classList.add('bg-rose-500', 'text-white');
+              all.forEach(x => {
+                if (x.textContent.trim() === ch.intruder) {
+                  x.classList.remove('bg-white/90');
+                  x.classList.add('bg-emerald-500', 'text-white');
+                }
+              });
+              playSFX('soft');
+              fb.className = 'p-4 rounded-2xl font-extrabold text-center text-base bg-amber-500/20';
+              fb.textContent = `El intruso era "${ch.intruder}" (${ch.intruderGroup}). Los otros 4 son "${ch.groupName}".`;
+            }
+
+            setTimeout(() => {
+              idx++;
+              render();
+            }, 2100);
+          };
+        });
+      }
+
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 8: BUSCA LAS DIFERENCIAS RÁPIDAS (320 ESCENAS CON 5 A 10 DIFERENCIAS)
+       ========================================================================== */
+    const SCENE_THEMES = [
+      { title: 'Mañana en el Potrero', skyTop: '#38bdf8', skyBot: '#bae6fd', ground: '#4ade80', hill: '#16a34a', pool: ['🐄', '🐓', '🌻', '🌳', '☁️', '🌞', '🦋', '🐕', '🏡', '🌾', '🐑', '🐝'] },
+      { title: 'Jardín de las Flores', skyTop: '#f472b6', skyBot: '#fde68a', ground: '#86efac', hill: '#15803d', pool: ['🌻', '🌹', '🌺', '🌷', '🌼', '🦋', '🐝', '🐇', '🌳', '🌞', '🍄', '🐦'] },
+      { title: 'Tarde junto al Volcán', skyTop: '#fb923c', skyBot: '#fef08a', ground: '#a3e635', hill: '#3f6212', pool: ['🏔️', '🦅', '🦙', '🌿', '☁️', '🌞', '🐎', '🌾', '🏡', '🌲', '🦊', '🌼'] },
+      { title: 'Corral de la Granja', skyTop: '#60a5fa', skyBot: '#e0f2fe', ground: '#bef264', hill: '#4d7c0f', pool: ['🐓', '🐔', '🐤', '🐹', '🐇', '🐕', '🐈', '🌽', '🌾', '🌻', '🏡', '🪣'] },
+      { title: 'Noche Estrellada en el Campo', skyTop: '#0f172a', skyBot: '#1e3a8a', ground: '#14532d', hill: '#064e3b', pool: ['🌕', '⭐', '✨', '🦉', '🏡', '🌲', '🐈', '🔥', '🏔️', '☁️', '🦇', '🌼'] }
+    ];
+
+    // Generador determinístico de 320 láminas distintas, cada una con entre 5 y 10 diferencias visuales claras
+    function generateDifferenceScene(sceneIndex) {
+      const theme = SCENE_THEMES[sceneIndex % SCENE_THEMES.length];
+      // Número de diferencias entre 5 y 10
+      const diffCount = 5 + (sceneIndex % 6);
+      const totalItems = 12;
+
+      // Posiciones bien distribuidas en una cuadrícula 4x3 con ligera variación orgánica
+      const slots = [];
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 4; c++) {
+          const seed = (sceneIndex * 17 + r * 7 + c * 13) % 11;
+          slots.push({
+            x: 13 + c * 24 + (seed - 5) * 0.9,
+            y: 22 + r * 28 + ((seed * 3) % 7 - 3) * 1.1
+          });
+        }
+      }
+
+      // Elegir cuáles índices tendrán diferencia (entre 5 y 10)
+      const diffIndices = new Set();
+      let cursor = (sceneIndex * 5) % totalItems;
+      while (diffIndices.size < diffCount) {
+        diffIndices.add(cursor);
+        cursor = (cursor + 3 + (sceneIndex % 2)) % totalItems;
+      }
+
+      const items = slots.map((pos, i) => {
+        const iconA = theme.pool[(sceneIndex + i * 3) % theme.pool.length];
+        const isDiff = diffIndices.has(i);
+        let iconB = iconA;
+        let scaleB = 1;
+        let rotateB = 0;
+        let opacityB = 1;
+
+        if (isDiff) {
+          const modType = (sceneIndex + i) % 4;
+          if (modType === 0) {
+            // Cambio de elemento / animal / flor
+            iconB = theme.pool[(sceneIndex + i * 3 + 4) % theme.pool.length];
+            if (iconB === iconA) iconB = '🌟';
+          } else if (modType === 1) {
+            // Desaparece en la segunda imagen
+            opacityB = 0;
+          } else if (modType === 2) {
+            // Cambia drásticamente de tamaño y gira
+            scaleB = 1.48;
+            rotateB = 35;
+          } else {
+            // Se voltea boca abajo y cambia icono
+            iconB = theme.pool[(sceneIndex + i * 5 + 2) % theme.pool.length];
+            rotateB = 180;
+          }
+        }
+
+        return {
+          id: i,
+          x: pos.x,
+          y: pos.y,
+          iconA,
+          iconB,
+          isDiff,
+          scaleB,
+          rotateB,
+          opacityB
+        };
+      });
+
+      return {
+        number: sceneIndex + 1,
+        title: `${theme.title} #${sceneIndex + 1}`,
+        theme,
+        items,
+        diffCount
+      };
+    }
+
+    function initDifferencesGame(container) {
+      let currentSceneIdx = Math.floor(Math.random() * 320);
+      let foundDiffs = new Set();
+
+      function render() {
+        const scene = generateDifferenceScene(currentSceneIdx);
+        const allFound = foundDiffs.size >= scene.diffCount;
+
+        const renderPanel = (isBottom) => `
+          <div class="relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-4 ${isBottom ? 'border-indigo-500/50' : 'border-amber-500/50'} shadow-md select-none"
+               style="background: linear-gradient(180deg, ${scene.theme.skyTop} 0%, ${scene.theme.skyBot} 58%, ${scene.theme.ground} 58%, ${scene.theme.hill} 100%);">
+            <span class="absolute top-2 left-3 px-2.5 py-0.5 rounded-full text-[11px] font-black bg-black/45 text-white z-10">
+              ${isBottom ? '🖼️ Imagen B (Toca las diferencias)' : '🖼️ Imagen A (Original)'}
+            </span>
+            ${scene.items.map(it => {
+              const icon = isBottom ? it.iconB : it.iconA;
+              const style = isBottom
+                ? `left:${it.x}%; top:${it.y}%; transform: translate(-50%, -50%) scale(${it.scaleB}) rotate(${it.rotateB}deg); opacity:${it.opacityB};`
+                : `left:${it.x}%; top:${it.y}%; transform: translate(-50%, -50%);`;
+              const isMarked = foundDiffs.has(it.id);
+
+              return `
+                <button data-item="${it.id}" class="diff-spot absolute w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center text-2xl sm:text-3xl cursor-pointer rounded-full transition-transform hover:scale-110" style="${style}">
+                  <span>${icon}</span>
+                  ${isMarked ? `<span class="absolute inset-0 rounded-full border-4 border-rose-500 bg-rose-500/20 animate-ping"></span><span class="absolute inset-0 rounded-full border-4 border-rose-600"></span>` : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+
+        container.innerHTML = `
+          <div class="space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h2 class="text-2xl font-black">👀 Busca las Diferencias</h2>
+                <p class="text-sm opacity-80">Lámina <strong>${scene.number} de 320</strong> (${scene.title}) · Encuentra <strong>${scene.diffCount} diferencias</strong></p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="px-3.5 py-1.5 rounded-2xl bg-indigo-500/20 font-black text-sm">
+                  Encontradas: ${foundDiffs.size} / ${scene.diffCount}
+                </span>
+                <button id="diff-next" class="btn-press px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs sm:text-sm shadow">
+                  ➡️ Otra Lámina
+                </button>
+              </div>
+            </div>
+
+            <!-- Dos escenas para comparar -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              ${renderPanel(false)}
+              ${renderPanel(true)}
+            </div>
+
+            ${allFound ? `
+              <div class="p-4 rounded-2xl bg-emerald-500/20 text-center font-black text-base sm:text-lg">
+                🎉 ¡Excelente vista! Encontraste las ${scene.diffCount} diferencias de esta lámina.
+              </div>
+            ` : ''}
+          </div>
+        `;
+
+        container.querySelector('#diff-next').onclick = () => {
+          currentSceneIdx = (currentSceneIdx + 1) % 320;
+          foundDiffs.clear();
+          playSFX('tap');
+          render();
+        };
+
+        container.querySelectorAll('.diff-spot').forEach(btn => {
+          btn.onclick = () => {
+            const id = Number(btn.dataset.item);
+            const item = scene.items[id];
+            if (item.isDiff) {
+              if (!foundDiffs.has(id)) {
+                foundDiffs.add(id);
+                playSFX('ok');
+                if (foundDiffs.size === scene.diffCount) {
+                  showToast(`🎉 ¡Completaste las ${scene.diffCount} diferencias!`, '👀');
+                } else {
+                  showToast(`¡Bien visto! Llevas ${foundDiffs.size} de ${scene.diffCount}`, '✨');
+                }
+                render();
+              }
+            } else {
+              playSFX('soft');
+              showToast('Ese detalle es igual en ambas imágenes, ¡sigue buscando!', '🔎');
+            }
+          };
+        });
+      }
+
+      render();
+    }
+
+    /* ==========================================================================
+       JUEGO 9: RINCÓN DE FRASES LINDAS (108 FRASES CÁLIDAS Y DE SABIDURÍA)
+       ========================================================================== */
+    const LOVELY_QUOTES = [
+      '«La felicidad no es tener mucho, sino disfrutar con cariño lo que tenemos en casa.»',
+      '«Como el volcán que mira sereno el valle, así es la paz de un hogar lleno de respeto.»',
+      '«Un buen café caliente en la mañana y una sonrisa sincera arreglan cualquier día.»',
+      '«Quien siembra cariño y paciencia en su familia, siempre cosecha alegría.»',
+      '«La música bonita tiene el poder de devolvernos al instante los mejores recuerdos.»',
+      '«En las cosas sencillas del campo está la verdadera riqueza de la vida.»',
+      '«Cada amanecer es una página limpia para agradecer, reír y compartir.»',
+      '«No hay medicina más buena para el alma que una charla tranquila sin afán.»',
+      '«Los años nos regalan sabiduría para valorar lo que de verdad importa.»',
+      '«Donde hay amor, respeto y buen humor, siempre se siente uno en casa.»',
+      '«El canto de los pájaros al alba nos recuerda que cada día trae algo bueno.»',
+      '«Una palabra amable cuesta muy poco y alegra el corazón todo el día.»',
+      '«Cuidar las plantas y los animales nos enseña la ternura de la naturaleza.»',
+      '«La familia es el árbol donde siempre encontramos sombra, abrigo y raíces.»',
+      '«Bailar y cantar en la sala de la casa rejuvenece el espíritu.»',
+      '«El secreto de una vida tranquila está en agradecer lo bueno de cada jornada.»',
+      '«Las mejores historias se cuentan alrededor de una mesa con comida casera.»',
+      '«Quien conserva la alegría de reírse de las cosas simples nunca envejece.»',
+      '«La montaña enseña firmeza; el río enseña a fluir; las flores enseñan a alegrar.»',
+      '«Un abrazo sincero dice más que mil discursos largos.»',
+      '«La paciencia es como la buena cosecha: todo llega en su momento justo.»',
+      '«Escuchar una buena canción es darle vacaciones al pensamiento.»',
+      '«La tierra agradece a quien la cuida con manos trabajadoras y corazón noble.»',
+      '«Hoy es un excelente día para regalarse un descanso y hacer algo que guste.»',
+      '«La amistad y el compañerismo en el hogar son el mejor abrigo contra el frío.»',
+      '«Cada flor del jardín florece a su propio ritmo, y todas adornan el paisaje.»',
+      '«Recordar con gratitud los caminos recorridos llena el pecho de orgullo bonito.»',
+      '«El buen humor es el sol que despeja cualquier nube pasajera.»',
+      '«Cuando el corazón está contento, hasta el café sabe más sabroso.»',
+      '«La verdadera elegancia está en tratar a todos con calidez y sencillez.»',
+      '«Qué fortuna tener salud, buena música y momentos para compartir.»',
+      '«Las raíces fuertes resisten cualquier viento y siempre vuelven a florecer.»',
+      '«Regálate un momento cada tarde para respirar profundo y mirar el cielo.»',
+      '«La vida se mide en los momentos bonitos que guardamos en la memoria.»',
+      '«Un hogar donde suena la música y se escuchan risas es un hogar bendecido.»',
+      '«La ternura hacia los animalitos refleja la nobleza del corazón humano.»',
+      '«No hace falta ir lejos para encontrar belleza cuando se mira con cariño.»',
+      '«Cada día trae una pequeña alegría esperando ser descubierta.»',
+      '«El descanso tranquilo después de un día de labor es una de las mayores dichas.»',
+      '«Las palabras bonitas son semillas que florecen en quien las recibe.»',
+      '«La unión familiar es el puente más firme que existe en este mundo.»',
+      '«Mirar las montañas al amanecer llena los ojos de calma y esperanza.»',
+      '«Siempre hay un buen motivo para poner una canción alegre y tararearla.»',
+      '«La generosidad de compartir el tiempo propio es el regalo más valioso.»',
+      '«Como el agua cristalina del páramo, así es un cariño limpio y verdadero.»',
+      '«Aprender algo nuevo o resolver un acertijo mantiene la mente despierta y feliz.»',
+      '«La gratitud transforma lo que tenemos en suficiente y en motivo de fiesta.»',
+      '«Qué lindo es llegar a casa y sentir el calor de quienes nos quieren.»',
+      '«El sol sale para todos, trayendo luz y energía renovada cada mañana.»',
+      '«Las costumbres bonitas de nuestra tierra son un tesoro que vive en nosotros.»',
+      '«Una tarde lluviosa con techo firme y buena compañía es pura comodidad.»',
+      '«Quien camina con paso sereno disfruta mucho más del paisaje.»',
+      '«El cariño verdadero no necesita fechas especiales para demostrarse.»',
+      '«Cada arruga de sonrisa cuenta una historia de momentos felices vividos.»',
+      '«La naturaleza nos habla en silencio con el viento entre los árboles.»',
+      '«Tener tiempo para jugar y distraerse es salud para la mente y el corazón.»',
+      '«El aroma de la tierra mojada después de la lluvia es perfume del campo.»',
+      '«Cuando se hace todo con amor, hasta lo cotidiano se vuelve especial.»',
+      '«La alegría compartida se multiplica en cada rincón de la casa.»',
+      '«Un corazón agradecido siempre encuentra razones para estar en paz.»',
+      '«Las mejores melodías son aquellas que nos hacen recordar momentos lindos.»',
+      '«La sabiduría del campo enseña a respetar los tiempos de la vida.»',
+      '«Sonreír al despertar es darle la bienvenida a un buen día.»',
+      '«La compañía sincera hace ligero cualquier camino.»',
+      '«Cuidarse a uno mismo y darse gustos sanos es una forma bonita de quererse.»',
+      '«Las estrellas siempre están ahí, incluso cuando las nubes las tapan un rato.»',
+      '«El respeto mutuo es la base sobre la que se construye toda armonía.»',
+      '«Una buena copla o un buen verso alegran hasta la tarde más tranquila.»',
+      '«La sencillez es la llave que abre las puertas de la verdadera paz.»',
+      '«Cada etapa de la vida tiene su encanto propio y sus alegrías únicas.»',
+      '«El amor de hogar es como el fuego del fogón: siempre mantiene el calor.»',
+      '«Donde hay buen ánimo, siempre surge una solución y una sonrisa.»',
+      '«Disfrutar el presente con calma es el mejor regalo que podemos darnos.»',
+      '«Las flores silvestres demuestran que se puede brillar con naturalidad.»',
+      '«La música del sur lleva en sus notas el alma alegre de nuestra gente.»',
+      '«Un detalle cariñoso permanece en el recuerdo mucho más que cualquier objeto.»',
+      '«La vida es más bonita cuando se vive sin comparaciones y con gratitud.»',
+      '«Cada palabra de aliento es un rayo de sol en el corazón.»',
+      '«El aire fresco de la montaña despeja la mente y renueva el espíritu.»',
+      '«Tener paz en el corazón es tenerlo todo.»',
+      '«Los buenos recuerdos son como canciones favoritas que nunca nos cansamos de oír.»',
+      '«La alegría es contagiosa: cuando uno sonríe, toda la casa se ilumina.»',
+      '«Agradecer por el pan de cada día y por la salud es sabiduría pura.»',
+      '«El cariño sincero atraviesa cualquier distancia y siempre está presente.»',
+      '«Qué bonito es compartir un rato de juego y entretenimiento sano.»',
+      '«La naturaleza siempre nos regala colores nuevos en cada estación.»',
+      '«Vivir con calma y buen corazón es la mejor receta de bienestar.»',
+      '«Las raíces de nuestra tierra nos dan identidad, fuerza y orgullo.»',
+      '«Cada nuevo día es una oportunidad para disfrutar lo que más nos gusta.»',
+      '«El sonido de la lluvia sobre el tejado invita al descanso y la serenidad.»',
+      '«La bondad cotidiana se nota en los pequeños gestos de todos los días.»',
+      '«Cantar en voz alta alegra el pecho y espanta cualquier cansancio.»',
+      '«La familia unida es refugio, alegría y motivo constante de gratitud.»',
+      '«El tiempo dedicado a sonreír nunca es tiempo perdido.»',
+      '«Como el girasol hacia la luz, orientemos siempre la mirada hacia lo bueno.»',
+      '«La tranquilidad del campo es un bálsamo maravilloso para el espíritu.»',
+      '«Quien valora los detalles pequeños vive rodeado de grandes alegrías.»',
+      '«Un saludo cariñoso por la mañana llena de energía toda la jornada.»',
+      '«La mejor herencia que se construye en casa es el ejemplo de amor y alegría.»',
+      '«Que hoy y siempre abunden la salud, la música y los momentos felices.»',
+      '«Cada flor que abre sus pétalos celebra la belleza de estar vivos.»',
+      '«La serenidad del alma se refleja en una mirada amable y tranquila.»',
+      '«Qué dicha contar con un rincón propio para distraerse y pasarla bien.»',
+      '«El cariño verdadero siempre encuentra la manera de hacerse sentir.»',
+      '«La risa en familia es la sinfonía más hermosa que puede escucharse en un hogar.»',
+      '«Hoy es un día perfecto para disfrutar, descansar y sentirse muy querido.»',
+      '«Con salud, cariño y buena música, la vida siempre sabe mejor.»',
+      '«Bienvenidos siempre a este espacio pensado para su alegría y tranquilidad.»'
+    ];
+
+    function initQuotesGame(container) {
+      let idx = Math.floor(Math.random() * LOVELY_QUOTES.length);
+      let showOnlyFavs = false;
+
+      function render() {
+        const pool = showOnlyFavs && appState.favoriteQuotes.length > 0
+          ? appState.favoriteQuotes
+          : LOVELY_QUOTES.map((_, i) => i);
+
+        if (!pool.includes(idx)) idx = pool[0];
+        const quote = LOVELY_QUOTES[idx];
+        const isFav = appState.favoriteQuotes.includes(idx);
+
+        container.innerHTML = `
+          <div class="space-y-5 text-center">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-left">
+              <div>
+                <h2 class="text-2xl font-black">💌 Rincón de Frases Lindas</h2>
+                <p class="text-sm opacity-80">Colección de ${LOVELY_QUOTES.length} frases bonitas · Frase #${idx + 1}</p>
+              </div>
+              <button id="q-fav-filter" class="btn-press px-3.5 py-2 rounded-xl font-bold text-xs sm:text-sm ${showOnlyFavs ? 'bg-pink-600 text-white shadow' : 'bg-black/10'}">
+                ❤️ Favoritas (${appState.favoriteQuotes.length})
+              </button>
+            </div>
+
+            <!-- Tarjeta de Frase -->
+            <div class="p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-amber-500/15 via-pink-500/10 to-emerald-500/15 border-2 border-amber-400/40 shadow-inner min-h-[210px] flex flex-col items-center justify-center">
+              <span class="text-4xl mb-4">🌻</span>
+              <p class="font-title text-xl sm:text-3xl font-bold leading-relaxed max-w-2xl">
+                ${quote}
+              </p>
+            </div>
+
+            <!-- Controles -->
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button id="q-prev" class="btn-press px-5 py-3 rounded-2xl bg-black/10 hover:bg-black/15 font-extrabold text-sm sm:text-base">
+                ⬅️ Anterior
+              </button>
+              <button id="q-like" class="btn-press px-5 py-3 rounded-2xl ${isFav ? 'bg-pink-600 text-white' : 'bg-white text-slate-900 border-2 border-pink-300'} font-extrabold text-sm sm:text-base shadow">
+                ${isFav ? '❤️ Guardada en Favoritas' : '🤍 Guardar Favorita'}
+              </button>
+              <button id="q-next" class="btn-press px-6 py-3 rounded-2xl bg-amber-500 text-white font-extrabold text-sm sm:text-base shadow-lg">
+                Siguiente Frase ➡️
+              </button>
+            </div>
+          </div>
+        `;
+
+        container.querySelector('#q-prev').onclick = () => {
+          const pos = pool.indexOf(idx);
+          idx = pool[(pos - 1 + pool.length) % pool.length];
+          playSFX('tap');
+          render();
+        };
+        container.querySelector('#q-next').onclick = () => {
+          const pos = pool.indexOf(idx);
+          idx = pool[(pos + 1) % pool.length];
+          playSFX('tap');
+          render();
+        };
+        container.querySelector('#q-like').onclick = () => {
+          if (appState.favoriteQuotes.includes(idx)) {
+            appState.favoriteQuotes = appState.favoriteQuotes.filter(x => x !== idx);
+            playSFX('tap');
+          } else {
+            appState.favoriteQuotes.push(idx);
+            playSFX('ok');
+            showToast('❤️ Frase guardada en tus favoritas', '💌');
+          }
+          saveAppState();
+          render();
+        };
+        container.querySelector('#q-fav-filter').onclick = () => {
+          if (!showOnlyFavs && appState.favoriteQuotes.length === 0) {
+            showToast('Aún no has guardado frases con corazón ❤️', '💌');
+            return;
+          }
+          showOnlyFavs = !showOnlyFavs;
+          playSFX('tap');
+          render();
+        };
+      }
+
+      render();
+    }
+
+    /* ==========================================================================
+       INICIALIZACIÓN
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadAppState();
+    });
+  </script>
+</body>
+</html>
